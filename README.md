@@ -1,198 +1,67 @@
 # Quran SVG
 
-High-quality Quran SVG pages with **clickable ayah polygons** for all major Qira'at readings.
+High-quality Quran **SVG pages** with a transparent, clickable **ayah-polygon** layer,
+across multiple qiraat and publishers.
 
-## Mushafs Included
+Each page is an SVG (plus a Brotli `.svg.br`) whose ayah hit-regions are
+`<path class="ayahPolygon" surah=… ayah=… number=…>`. The `json/` folder holds
+per-page polygon metadata plus two indexes: `surah.json` and `markers.json`.
 
-| Mushaf | Qira'a | Rawi | Pages | Count System |
-|--------|--------|------|-------|--------------|
-| Hafs | Asim | Hafs | 604 | Kufi (6,236) |
-| Warsh | Nafi' | Warsh | 604 | Madani (6,214) |
-| Qalun | Nafi' | Qalun | 604 | Madani (6,214) |
-| Douri | Abu Amr | Al-Douri | 604 | Basri (6,205) |
-| Shubah | Asim | Shu'bah | 604 | Kufi (6,236) |
+## Layout
 
-## Why SVG?
-
-- **Scalable**: Vector graphics that look crisp at any zoom level
-- **Interactive**: Embedded polygon paths enable clickable ayah regions
-- **Lightweight**: [Brotli](https://github.com/google/brotli)-compressed versions are ~83% smaller than originals
-- **Semantic**: Each ayah has metadata attributes (surah, ayah number, verse ID)
-
-## File Structure
+Folders are organised by **qiraa → publisher**:
 
 ```
-mushafs/
-├── hafs/
-│   ├── svg/           # Uncompressed SVG files (001.svg - 604.svg)
-│   ├── svg-br/        # Brotli-compressed SVGs (~83% smaller)
-│   └── json/          # Polygon metadata for each page
-├── warsh/
-├── douri/
-├── qalon/
-└── shubah/
+mushafs/<qiraa>/<publisher>/
+├── svg/      001.svg …          vector page text + ayah hit-layer
+├── svg-br/   001.svg.br …       Brotli-compressed (serve with Content-Encoding: br)
+└── json/     001.json …         per-page polygons
+           surah.json            114-surah index (page, juz, names, ayah count)
+           markers.json          ayah medallion centres [{page, ayah, x, y}]
 ```
 
-### Special Page Variants
+Pages that contain more than one surah also have surah-specific variants, e.g.
+`106-surah4.svg` / `106-surah5.svg`.
 
-Pages containing multiple surahs have surah-specific variants:
+## Available mushafs
 
-```
-106.svg           # Full page (Surah 4 ending + Surah 5 beginning)
-106-surah4.svg    # Only Surah An-Nisa (4) portion
-106-surah5.svg    # Only Surah Al-Ma'idah (5) portion
-```
+| Qiraa | Rawi | Publisher | Folder | Pages | Ayah count |
+|-------|------|-----------|--------|------:|-----------:|
+| ʿAsim | Hafs | King Fahd Complex — KFQC | `hafs/kfqc` | 604 | 6236 |
+| Nafiʿ | Warsh | King Fahd Complex — KFQC | `warsh/kfqc` | 604 | 6214 |
+| Nafiʿ | Qalun | King Fahd Complex — KFQC | `qalon/kfqc` | 604 | 6214 |
+| Nafiʿ | Qalun | Libyan Endowments — مصحف الأوقاف الليبي | `qalon/libya-awqaf` | 612 | 6214 |
+| Abu ʿAmr | Al-Douri | King Fahd Complex — KFQC | `douri/kfqc` | 604 | 6205 |
+| ʿAsim | Shuʿbah | King Fahd Complex — KFQC | `shubah/kfqc` | 604 | 6236 |
 
-## SVG Structure
-
-Each SVG contains the Quran text as paths, plus transparent clickable polygons for each ayah:
+## SVG & polygon structure
 
 ```xml
-<path
-  class="ayahPolygon"
-  id="verse-1"
-  number="001001"        <!-- 6-digit: SSSAAA (surah + ayah) -->
-  surah="1"
-  ayah="1"
-  d="M 5.0 5.75 L 340.0 5.75 L 340.0 43.93 L 5.0 43.93 Z"
-  fill-opacity="0"
-/>
+<path class="ayahPolygon" id="verse-12" number="002005" surah="2" ayah="5"
+      d="M …" fill-opacity="0"/>
 ```
 
-### Recommended CSS
+- `id` — `verse-N`, a global running ayah index over the whole mushaf.
+- `number` — `SSSAAA` (surah×1000 + ayah, zero-padded).
+- Polygons render first (transparent); page glyphs render on top. Suggested CSS:
 
 ```css
-.ayahPolygon {
-  fill: transparent;
-  fill-opacity: 0;
-  cursor: pointer;
-  transition: fill-opacity 0.2s ease;
-  mix-blend-mode: multiply;
-}
-
-.ayahPolygon:hover {
-  fill: #f5e6a3;
-  fill-opacity: 0.8;
-}
+.ayahPolygon { fill-opacity: 0; cursor: pointer; }
+.ayahPolygon:hover { fill: #f5e6a3; fill-opacity: .5; }
 ```
 
-### JavaScript Click Handler
+Give the glyph paths `pointer-events:none` so the lower polygons receive clicks.
 
-```javascript
-document.querySelectorAll('.ayahPolygon').forEach(polygon => {
-  polygon.addEventListener('click', (e) => {
-    const surah = e.target.getAttribute('surah');
-    const ayah = e.target.getAttribute('ayah');
-    console.log(`Clicked: Surah ${surah}, Ayah ${ayah}`);
-  });
-});
-```
+## Coordinates & counts
 
-## JSON Metadata Format
+- Coordinates are each mushaf's **native page pixels** (polygons and glyphs share one
+  space — no rescaling needed). The Libyan Awqaf mushaf uses `viewBox 0 0 1120 2250`.
+- Ayah counts follow **each mushaf's own medallions** and differ between qiraat
+  (and occasionally between editions). The mushaf is authoritative.
 
-Each JSON file contains polygon data for its corresponding page:
-
-```json
-{
-  "page": 3,
-  "mushaf_id": 1,
-  "polygons": [
-    {
-      "id": "verse-1",
-      "number": "002001",
-      "surah": 2,
-      "ayah": 1,
-      "line": 1,
-      "bounds": { "x": 5.0, "y": 5.75, "width": 335.0, "height": 38.18 },
-      "path": "M 5.0 5.75 L 340.0 5.75 ..."
-    }
-  ]
-}
-```
-
-## Serving Brotli-Compressed Files
-
-[Brotli](https://github.com/google/brotli) is a compression algorithm developed by Google. Learn more about [serving Brotli files](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding).
+## Serving Brotli files
 
 ```nginx
-# Nginx
-location /quran-svg/ {
-  brotli_static on;
-  add_header Content-Type image/svg+xml;
-}
+location ~ \.svg\.br$  { add_header Content-Encoding br; default_type image/svg+xml; }
+location ~ \.json\.br$ { add_header Content-Encoding br; default_type application/json; }
 ```
-
-```php
-// PHP/Laravel
-public function serveSvg(string $mushaf, int $page)
-{
-    $pageNum = str_pad($page, 3, '0', STR_PAD_LEFT);
-
-    if (str_contains(request()->header('Accept-Encoding', ''), 'br')) {
-        $path = "mushafs/{$mushaf}/svg-br/{$pageNum}.svg.br";
-        return response(file_get_contents($path))
-            ->header('Content-Type', 'image/svg+xml')
-            ->header('Content-Encoding', 'br');
-    }
-
-    return response(file_get_contents("mushafs/{$mushaf}/svg/{$pageNum}.svg"))
-        ->header('Content-Type', 'image/svg+xml');
-}
-```
-
----
-
-## ⚠️ Ayah Counting Systems
-
-**Important:** Different Qira'at use different ayah counting systems. The `number` attribute in our SVGs uses each mushaf's **native counting system**.
-
-### Why Counts Differ
-
-The differences arise from scholarly opinions on:
-- Whether the Basmala counts as a separate ayah
-- Where long passages should be divided
-- Treatment of disconnected letters (الحروف المقطعة)
-
-### Example: Surah Al-Fatihah (Ayah 1)
-
-| Mushaf | Ayah 1 Text |
-|--------|-------------|
-| Hafs | بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ |
-| Douri | الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ |
-
-Both have 7 ayahs total, but the numbering is shifted throughout the surah.
-
-### Mapping Recommendation
-
-When building applications supporting multiple Qira'at, maintain a mapping table to convert between counting systems. Store a universal ayah ID (e.g., Hafs-based) in your database and map to other Qira'at for display.
-
----
-
-## Sources & Credits
-
-### Primary Source
-
-**King Fahd Complex for Printing the Holy Quran**
-- https://dm.qurancomplex.gov.sa/
-- Original format: Adobe Illustrator (.ai)
-- License: Free for Islamic purposes
-
-### Inspiration & Thanks
-
-- **[batoulapps/quran-svg](https://github.com/batoulapps/quran-svg)** - Inspiration for the SVG polygon approach
-- **[Itqan.dev](https://itqan.dev/)** - Community support and feedback
-
-## License
-
-The Quran text and its representation are free for all Islamic purposes.
-
-## Contributing
-
-Contributions welcome:
-- Bug fixes in polygon positioning
-- Additional Qira'at readings
-- Documentation improvements
-
----
-
-Built with ❤️ for the Muslim Ummah by [Quranpedia.net](https://quranpedia.net)
