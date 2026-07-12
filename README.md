@@ -65,3 +65,24 @@ Give the glyph paths `pointer-events:none` so the lower polygons receive clicks.
 location ~ \.svg\.br$  { add_header Content-Encoding br; default_type image/svg+xml; }
 location ~ \.json\.br$ { add_header Content-Encoding br; default_type application/json; }
 ```
+
+## License & usage
+
+The repository is **dual-licensed** so the useful data can be reused freely while the
+publisher-derived page art keeps its non-commercial terms:
+
+- **Numbering & boundary data** (`mushafs/**/json/` — per-page polygons, `surah.json`,
+  `markers.json`) is **[CC0 1.0](DATA-LICENSE)** (public domain). These are facts about the
+  mushaf (per-riwaya ayah counts, ayah↔page, hit-region coordinates); reuse freely, including
+  commercially, no attribution required. This is the part to build a shared standard on.
+- **Rendered page art** (`svg/`, `svg-br/`) is **[CC BY-NC-SA 4.0](LICENSE)**.
+- **The Qur'anic text itself** is not subject to copyright and may be freely reproduced,
+  but must never be altered and its sanctity must be preserved.
+- **The mushaf page layouts & calligraphy** belong to their publishers — the
+  **King Fahd Glorious Qur'an Printing Complex** (Ḥafṣ, Warsh, Qālūn, Al-Dūrī, Shuʿbah)
+  and the **Libyan Ministry of Awqaf** (Qālūn). They are **free for non-commercial use**
+  consistent with Islamic rulings.
+- **For commercial use**, you must obtain permission directly from the publisher of each
+  mushaf you use.
+
+See **[NOTICE.md](NOTICE.md)** for full source attribution and terms.
