@@ -1,6 +1,6 @@
 # NOTICE — Sources, Attribution & Usage Terms
 
-This repository contains vector (SVG) renderings of Qur'an mushaf pages together with a
+This repository contains vector (SVG) renderings of Qur'an muṣḥaf pages together with a
 transparent, clickable ayah‑polygon layer and per‑page JSON metadata. Please read the
 following before using the material.
 
@@ -9,61 +9,56 @@ following before using the material.
 The text of the Holy Qur'an (the ʿUthmānī rasm) is the revealed Word of Allah. It is **not
 subject to copyright** and may be freely reproduced. However, it **must never be altered,
 truncated, or misrepresented**, and it must be handled with the respect (ḥurmah) due to it
-under Islamic rulings. Any use that distorts the text or is disrespectful to it is not
-permitted.
+under Islamic rulings.
 
-## 2. Mushaf sources (page layouts & calligraphy)
+## 2. Source editions & their terms
 
-While the *text* is free, each mushaf's **page composition, calligraphy/typeface, and layout**
-are the work of its publisher. The pages in this repository are derived from the following
-editions:
+The mushaf pages are derived from the following publishers' editions. All rights in the
+original editions remain with their respective publishers.
 
-| Qiraa'a | Rawi | Publisher / Edition | Folder |
-|---------|------|---------------------|--------|
-| ʿĀṣim | Ḥafṣ | King Fahd Glorious Qur'an Printing Complex, Madinah (KFQC) — مجمع الملك فهد لطباعة المصحف الشريف | `mushafs/hafs/kfqc` |
-| Nāfiʿ | Warsh | King Fahd Glorious Qur'an Printing Complex, Madinah (KFQC) | `mushafs/warsh/kfqc` |
-| Nāfiʿ | Qālūn | King Fahd Glorious Qur'an Printing Complex, Madinah (KFQC) | `mushafs/qalon/kfqc` |
-| Nāfiʿ | Qālūn | Libyan Ministry of Endowments (Awqaf) — مصحف الأوقاف الليبي | `mushafs/qalon/libya-awqaf` |
-| Abū ʿAmr | Al‑Dūrī | King Fahd Glorious Qur'an Printing Complex, Madinah (KFQC) | `mushafs/douri/kfqc` |
-| ʿĀṣim | Shuʿbah | King Fahd Glorious Qur'an Printing Complex, Madinah (KFQC) | `mushafs/shubah/kfqc` |
+### 2.1 King Fahd Glorious Qur'an Printing Complex (KFQC) — مجمع الملك فهد لطباعة المصحف الشريف
+Covers: `hafs/kfqc`, `warsh/kfqc`, `qalon/kfqc`, `douri/kfqc`, `shubah/kfqc`.
 
-All rights in the original mushaf editions remain with their respective publishers.
+The Complex publishes a **complete free digital copy** of Muṣḥaf al‑Madinah (as Adobe
+Illustrator files, PDF, high‑quality images, and a TrueType font). Per the Complex's stated
+usage rights:
 
-## 3. Usage terms
+> Based on the approval of His Excellency the Minister of Islamic Affairs, Daʿwah and
+> Guidance, General Supervisor of the King Fahd Qur'an Printing Complex — the Complex is
+> honored to present to the Muslim public a complete free digital copy of Muṣḥaf al‑Madinah.
+> These formats **can be used for free** in all personal and individual businesses, in works
+> of governmental departments & agencies, in the publications of both private and national
+> institutions; it also allows **Qur'an printing\***, **digital publishing**, **media use**,
+> and use in **websites, software, and other similar intermediates**.
+>
+> \* The printing of the Qur'an inside the Kingdom and importing it from abroad **for the
+> purpose of commercial sale** is subject to Royal Decree No. 136/8 (1/2/1406 AH) and Royal
+> Decree No. 9/B/46356 (28/9/1424 AH), which prohibit printing the Qur'an inside the Kingdom
+> anywhere other than the King Fahd Glorious Qur'an Printing Complex, and prohibit importing
+> it from abroad for the purpose of commercial sale.
 
-### Non‑commercial use — permitted, free
-All of the mushafs included here are **free to use for non‑commercial purposes** — such as
-personal study, teaching, daʿwah, research, and free (non‑paid) software and websites —
-**in a manner that does not conflict with the rulings of Islam** and that preserves the
-integrity and sanctity of the Qur'anic text. The publishers make these mushafs available for
-the benefit of Muslims worldwide on this basis.
+**In practice:** free for essentially every personal, commercial, governmental, digital,
+media, web, and software use — worldwide. The **only** restriction is the physical
+**print‑for‑commercial‑sale** trade of muṣḥafs, which is reserved to the Complex.
+Source: <https://qurancomplex.gov.sa>.
 
-### Commercial use — check with each publisher first
-For **any commercial use** (selling, bundling into a paid product, printing for sale,
-advertising‑driven distribution, etc.), the mushaf editions are **not automatically licensed**.
-You **must obtain permission directly from the publisher of each mushaf you intend to use**:
+### 2.2 Libyan Ministry of Endowments (Awqaf) — مصحف الأوقاف الليبي
+Covers: `qalon/libya-awqaf`.
 
-- **King Fahd Glorious Qur'an Printing Complex (KFQC), Madinah** — <https://qurancomplex.gov.sa>
-  (contact the Complex for reproduction/commercial‑use permissions).
-- **Libyan Ministry of Endowments and Islamic Affairs (Awqaf)** — for the Libyan Qālūn mushaf.
+Terms for this edition are **not confirmed** in this repository. Non‑commercial religious use
+is generally understood to be permitted; for **commercial** use, please **verify directly with
+the Libyan Ministry of Awqaf**.
 
-The maintainers of this repository cannot grant commercial rights over the underlying mushaf
-editions; only each publisher can.
+## 3. This repository's own contribution — CC0 1.0 (public domain)
 
-## 4. This repository's own contribution (dual‑licensed)
+Everything **we** authored — the ayah‑polygon hit‑layer, the JSON metadata (per‑page
+polygons, `surah.json`, `markers.json` — the per‑riwaya ayah counts, ayah↔page mapping, and
+hit‑region coordinates), and the repository structure/tooling — is dedicated to the public
+domain under **CC0 1.0** (see `LICENSE`). Reuse freely, including commercially, with no
+attribution required (attribution to *Quranpedia — quran‑svg* is appreciated). This makes the
+data a clean foundation for an open, shared Qur'anic‑data standard.
 
-- **Numbering & boundary data** — everything under `mushafs/**/json/` (per‑page polygons,
-  `surah.json`, `markers.json`): the per‑riwaya ayah counts, ayah↔page mapping, and
-  hit‑region coordinates are **facts** about the mushaf and are dedicated to the public
-  domain under **CC0 1.0** (see `DATA-LICENSE`). Reuse freely — including commercially, with
-  no attribution required — so this data can serve as a clean foundation for an open,
-  shared Qur'anic‑data standard.
-- **Rendered page art** — the SVG page glyphs and their Brotli copies under `svg/` and
-  `svg-br/` derive from the publishers' mushaf editions and are licensed under
-  **CC BY‑NC‑SA 4.0** (see `LICENSE`), consistent with the non‑commercial terms of those
-  sources. Attribution to *Quranpedia — quran‑svg* is appreciated.
-
-## 5. Disclaimer
+## 4. Disclaimer
 
 The material is provided "as is", for the service of the Book of Allah. If you find any error
 in a page or its metadata, please open an issue so it can be corrected promptly.

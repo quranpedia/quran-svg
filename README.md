@@ -68,21 +68,19 @@ location ~ \.json\.br$ { add_header Content-Encoding br; default_type applicatio
 
 ## License & usage
 
-The repository is **dual-licensed** so the useful data can be reused freely while the
-publisher-derived page art keeps its non-commercial terms:
+- **Our own contribution** — the ayah-polygon overlay, the JSON metadata (`mushafs/**/json/` —
+  per-page polygons, `surah.json`, `markers.json`), and the repo structure/tooling — is
+  **[CC0 1.0](LICENSE)** (public domain): reuse freely, including commercially, no attribution
+  required. This is the clean base to build a shared Qur'anic-data standard on.
+- **King Fahd Complex editions** (Ḥafṣ, Warsh, Qālūn, Al-Dūrī, Shuʿbah — the `*/kfqc` folders):
+  the Complex grants **free use** of its digital Muṣḥaf al-Madinah for personal, business,
+  governmental, institutional, printing, digital-publishing, media, website, and software use,
+  **worldwide**. The **only** restriction is that **printing physical muṣḥafs for commercial
+  sale** is reserved to the Complex (Saudi Royal Decrees). So: free for essentially any
+  digital/app/web use — you just can't use it to print-and-sell physical muṣḥafs.
+- **Libyan Awqaf edition** (`qalon/libya-awqaf`): terms not confirmed here — for commercial
+  use, verify with the **Libyan Ministry of Awqaf**.
+- **The Qur'anic text itself** is not subject to copyright and may be freely reproduced, but
+  must never be altered and its sanctity must be preserved.
 
-- **Numbering & boundary data** (`mushafs/**/json/` — per-page polygons, `surah.json`,
-  `markers.json`) is **[CC0 1.0](DATA-LICENSE)** (public domain). These are facts about the
-  mushaf (per-riwaya ayah counts, ayah↔page, hit-region coordinates); reuse freely, including
-  commercially, no attribution required. This is the part to build a shared standard on.
-- **Rendered page art** (`svg/`, `svg-br/`) is **[CC BY-NC-SA 4.0](LICENSE)**.
-- **The Qur'anic text itself** is not subject to copyright and may be freely reproduced,
-  but must never be altered and its sanctity must be preserved.
-- **The mushaf page layouts & calligraphy** belong to their publishers — the
-  **King Fahd Glorious Qur'an Printing Complex** (Ḥafṣ, Warsh, Qālūn, Al-Dūrī, Shuʿbah)
-  and the **Libyan Ministry of Awqaf** (Qālūn). They are **free for non-commercial use**
-  consistent with Islamic rulings.
-- **For commercial use**, you must obtain permission directly from the publisher of each
-  mushaf you use.
-
-See **[NOTICE.md](NOTICE.md)** for full source attribution and terms.
+See **[NOTICE.md](NOTICE.md)** for full source attribution and the publishers' exact terms.
