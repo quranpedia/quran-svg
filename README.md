@@ -78,8 +78,8 @@ location ~ \.json\.br$ { add_header Content-Encoding br; default_type applicatio
   **worldwide**. The **only** restriction is that **printing physical muṣḥafs for commercial
   sale** is reserved to the Complex (Saudi Royal Decrees). So: free for essentially any
   digital/app/web use — you just can't use it to print-and-sell physical muṣḥafs.
-- **Libyan Awqaf edition** (`qalon/libya-awqaf`): terms not confirmed here — for commercial
-  use, verify with the **Libyan Ministry of Awqaf**.
+- **Libyan Awqaf edition** (`qalon/libya-awqaf`): **free for non-commercial use only**;
+  **commercial use requires prior approval from the Libyan Ministry of Awqaf**.
 - **The Qur'anic text itself** is not subject to copyright and may be freely reproduced, but
   must never be altered and its sanctity must be preserved.
 

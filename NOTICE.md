@@ -45,9 +45,8 @@ Source: <https://qurancomplex.gov.sa>.
 ### 2.2 Libyan Ministry of Endowments (Awqaf) — مصحف الأوقاف الليبي
 Covers: `qalon/libya-awqaf`.
 
-Terms for this edition are **not confirmed** in this repository. Non‑commercial religious use
-is generally understood to be permitted; for **commercial** use, please **verify directly with
-the Libyan Ministry of Awqaf**.
+This edition is **free for non‑commercial use only**. **Commercial use requires prior approval
+from the Libyan Ministry of Endowments (Awqaf).**
 
 ## 3. This repository's own contribution — CC0 1.0 (public domain)
 
