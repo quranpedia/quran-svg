@@ -50,9 +50,10 @@ from the Libyan Ministry of Endowments (Awqaf).**
 
 ## 3. This repository's own contribution — CC0 1.0 (public domain)
 
-Everything **we** authored — the ayah‑polygon hit‑layer, the JSON metadata (per‑page
-polygons, `surah.json`, `markers.json` — the per‑riwaya ayah counts, ayah↔page mapping, and
-hit‑region coordinates), and the repository structure/tooling — is dedicated to the public
+Everything **we** authored — the ayah‑polygon hit‑layer, the per‑line grouping
+(`<g class="line" data-line="N">`) and the line geometry in `lines/`, the JSON metadata
+(per‑page polygons, `surah.json`, `markers.json` — the per‑riwaya ayah counts, ayah↔page
+mapping, and hit‑region coordinates), and the repository structure/tooling — is dedicated to the public
 domain under **CC0 1.0** (see `LICENSE`). Reuse freely, including commercially, with no
 attribution required (attribution to *Quranpedia — quran‑svg* is appreciated). This makes the
 data a clean foundation for an open, shared Qur'anic‑data standard.
