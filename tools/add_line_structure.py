@@ -541,8 +541,17 @@ def _compress(job):
         raw = fh.read()
     # quality 11 with the default window, which is what the existing .br files were
     # written with — recompressing an untouched page reproduces it byte for byte.
-    with open(dst, "wb") as fh:
-        fh.write(brotli.compress(raw, quality=11))
+    data = brotli.compress(raw, quality=11)
+    # Written to a temporary neighbour and renamed, never in place. Quality 11 over three
+    # thousand pages takes long enough that a run *will* be interrupted eventually, and
+    # writing in place turns that into a truncated `.br` that fails to decompress at all —
+    # a reader gets a decoder error rather than a page. Measured after one interrupted run:
+    # 38 of 604 hafs files were unreadable. `os.replace` is atomic on the same filesystem,
+    # so an interrupted run now leaves the previous file intact.
+    tmp = dst + ".tmp"
+    with open(tmp, "wb") as fh:
+        fh.write(data)
+    os.replace(tmp, dst)
 
 
 def refresh_brotli(edition_dir, names, jobs):

@@ -114,8 +114,14 @@ regenerated upstream, or the annotation is lost on the next update:
 tools/add_line_structure.py                    # every edition, refreshes svg-br/ too
 tools/add_line_structure.py --mushaf hafs/kfqc
 tools/add_line_structure.py --check            # validate only, write nothing
+tools/split_ayah_polygons.py                   # cut ayah polygons at the line boundaries
+tools/split_ayah_polygons.py --check           # validate only, write nothing
 tools/verify_render.py hafs/kfqc --scale 3     # render every page before and after
+tools/verify_line_assignment.py hafs/kfqc      # is every contour on the line its ink is on?
 ```
+
+Order matters: `split_ayah_polygons.py` reads the line bands, so it runs after
+`add_line_structure.py`.
 
 It needs Python 3 and the `brotli` module (`pip install brotli`); `verify_render.py` also
 needs `rsvg-convert`, and `numpy`+`pillow` to quantify differences.
@@ -126,6 +132,45 @@ fits the page's fixed 15-line grid to the ink profile, then nudges each cut onto
 space beside it. **It will not emit a body page that does not segment to 15 lines**; it
 reports it instead. Re-running is safe and idempotent: an already-annotated page is
 unwrapped and re-derived, and comes out byte-identical.
+
+### Ayah polygons are cut at the line boundaries
+
+A verse's tap region is a rectilinear polygon over the words it covers. Where a verse runs
+over several whole lines that used to be **one tall rectangle** — on `hafs/048`, verse 2:282
+was three rectangles and the middle one spanned all fifteen lines. That is fine for
+hit-testing a page drawn as printed, and wrong for anything that treats a page as lines: a
+consumer spreading the lines to fill a screen, or highlighting a verse line by line, has to
+give each rectangle one line's offset, and a rectangle covering fifteen lines can only be
+given one.
+
+`split_ayah_polygons.py` subdivides them so every rectangle lies within a single line
+(2:282 becomes seventeen). It is a pure subdivision — the union each verse covers is
+identical before and after, which `--check` proves per polygon by re-deriving the covered
+region both ways rather than comparing the text. The polygons never render
+(`fill-opacity="0"`), so no pixel can change either. Both copies are rewritten, the SVG and
+`json/NNN.json`, since they are the same geometry.
+
+### Verifying the line assignment
+
+`verify_render.py` proves the regrouping changed no pixel, by rendering the page **as it
+sits**. That is the right check for `evenodd` cancellation and cannot detect a wrong line
+*assignment*: a contour in the wrong `<g>` renders identically until something moves the
+lines, so the error is invisible here and appears downstream.
+
+`verify_line_assignment.py` checks that separately, and needs no renderer. For every contour
+it takes the band its own ink falls in; where that differs from the group it was assigned to,
+the contour must be within half a unit of something in that group **by distance between the
+outlines**, not between their bounding boxes.
+
+The distinction is the point. `clusters()` unions contours whose *boxes* overlap, which is
+the correct and cheap test for whether splitting them could break an `evenodd` cancellation,
+and is not a test of whether they touch. Arabic script is full of tails sweeping down from
+one line across the whitespace of the next: their box encloses marks they never come near.
+Bound to such a tail, a mark is outvoted by the tail's width and assigned to the tail's line.
+
+It currently reports contours on every edition — 704 (warsh) to 1,868 (qalon), on roughly two
+thirds of pages. Those are marks that will jump a line the moment a consumer spreads the
+page, and the tool is the finding, not a regression it introduces.
 
 ## Serving Brotli files
 
