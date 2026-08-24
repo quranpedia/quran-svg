@@ -1,0 +1,2778 @@
+{
+  "_version": "0.1.0",
+  "_description": "Canonical scholar-facing, book-aligned primitive boundary layer. Each listed point is a disputed ayah boundary anchored by the source word. counted_by names the counting madhhabs that count that point as a ra's ayah. Ordinary undisputed kufi ends are implicit and omitted.",
+  "_reference_system": "kufi",
+  "_counting_system_order": [
+    "madani-first",
+    "madani-last",
+    "makki",
+    "basri",
+    "dimashqi",
+    "kufi"
+  ],
+  "surahs": {
+    "1": {
+      "1": {
+        "end": {
+          "word": "الرحيم",
+          "counted_by": [
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "7": {
+        "internal": [
+          {
+            "word": "عليهم",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "2": {
+      "1": {
+        "end": {
+          "word": "الم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "10": {
+        "internal": [
+          {
+            "word": "أليم",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "11": {
+        "end": {
+          "word": "مصلحون",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "114": {
+        "internal": [
+          {
+            "word": "خائفين",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      },
+      "197": {
+        "end": {
+          "word": "الألباب",
+          "counted_by": [
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "200": {
+        "end": {
+          "word": "خلاق",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "219": {
+        "internal": [
+          {
+            "word": "ينفقون",
+            "counted_by": [
+              "madani-first",
+              "makki"
+            ]
+          }
+        ],
+        "end": {
+          "word": "تتفكرون",
+          "counted_by": [
+            "madani-last",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "235": {
+        "internal": [
+          {
+            "word": "معروفا",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      },
+      "255": {
+        "internal": [
+          {
+            "word": "القيوم",
+            "counted_by": [
+              "madani-last",
+              "makki",
+              "basri"
+            ]
+          }
+        ]
+      },
+      "257": {
+        "internal": [
+          {
+            "word": "النور",
+            "counted_by": [
+              "madani-first"
+            ]
+          }
+        ]
+      }
+    },
+    "3": {
+      "1": {
+        "end": {
+          "word": "الم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "3": {
+        "end": {
+          "word": "والإنجيل",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "4": {
+        "internal": [
+          {
+            "word": "الفرقان",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "48": {
+        "end": {
+          "word": "والإنجيل",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "49": {
+        "internal": [
+          {
+            "word": "إسرائيل",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      },
+      "92": {
+        "internal": [
+          {
+            "word": "تحبون",
+            "counted_by": [
+              "madani-last",
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "97": {
+        "internal": [
+          {
+            "word": "إبراهيم",
+            "counted_by": [
+              "madani-first",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "4": {
+      "44": {
+        "end": {
+          "word": "السبيل",
+          "counted_by": [
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "173": {
+        "internal": [
+          {
+            "word": "أليما",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "5": {
+      "1": {
+        "internal": [
+          {
+            "word": "بالعقود",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "15": {
+        "internal": [
+          {
+            "word": "كثير",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "23": {
+        "internal": [
+          {
+            "word": "غالبون",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      }
+    },
+    "6": {
+      "1": {
+        "internal": [
+          {
+            "word": "والنور",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "66": {
+        "end": {
+          "word": "بوكيل",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "73": {
+        "internal": [
+          {
+            "word": "فيكون",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "161": {
+        "internal": [
+          {
+            "word": "مستقيم",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "7": {
+      "1": {
+        "end": {
+          "word": "المص",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "29": {
+        "internal": [
+          {
+            "word": "الدين",
+            "counted_by": [
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ],
+        "end": {
+          "word": "تعودون",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "38": {
+        "internal": [
+          {
+            "word": "النار",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "137": {
+        "internal": [
+          {
+            "word": "إسرائيل",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      }
+    },
+    "8": {
+      "36": {
+        "internal": [
+          {
+            "word": "يغلبون",
+            "counted_by": [
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "42": {
+        "internal": [
+          {
+            "word": "مفعولا",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "62": {
+        "end": {
+          "word": "وبالمؤمنين",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "9": {
+      "3": {
+        "internal": [
+          {
+            "word": "المشركين",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      },
+      "39": {
+        "internal": [
+          {
+            "word": "أليما",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "70": {
+        "internal": [
+          {
+            "word": "وثمود",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      }
+    },
+    "10": {
+      "22": {
+        "internal": [
+          {
+            "word": "الدين",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ],
+        "end": {
+          "word": "الشاكرين",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "57": {
+        "internal": [
+          {
+            "word": "الصدور",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "11": {
+      "54": {
+        "end": {
+          "word": "تشركون",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "74": {
+        "end": {
+          "word": "لوط",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "82": {
+        "internal": [
+          {
+            "word": "سجيل",
+            "counted_by": [
+              "madani-last",
+              "makki"
+            ]
+          }
+        ],
+        "end": {
+          "word": "منضود",
+          "counted_by": [
+            "madani-first",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "86": {
+        "internal": [
+          {
+            "word": "مؤمنين",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "118": {
+        "end": {
+          "word": "مختلفين",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "121": {
+        "end": {
+          "word": "عاملون",
+          "counted_by": [
+            "madani-first",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "13": {
+      "5": {
+        "internal": [
+          {
+            "word": "جديد",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "16": {
+        "internal": [
+          {
+            "word": "والبصير",
+            "counted_by": [
+              "dimashqi"
+            ]
+          },
+          {
+            "word": "والنور",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "18": {
+        "internal": [
+          {
+            "word": "الحساب",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "23": {
+        "end": {
+          "word": "باب",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "14": {
+      "1": {
+        "internal": [
+          {
+            "word": "النور",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "5": {
+        "internal": [
+          {
+            "word": "النور",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "9": {
+        "internal": [
+          {
+            "word": "وثمود",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri"
+            ]
+          }
+        ]
+      },
+      "19": {
+        "end": {
+          "word": "جديد",
+          "counted_by": [
+            "madani-first",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "24": {
+        "end": {
+          "word": "السماء",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "33": {
+        "end": {
+          "word": "والنهار",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "42": {
+        "internal": [
+          {
+            "word": "الظالمون",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "17": {
+      "107": {
+        "end": {
+          "word": "سجدا",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "18": {
+      "13": {
+        "end": {
+          "word": "هدى",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "22": {
+        "internal": [
+          {
+            "word": "قليل",
+            "counted_by": [
+              "madani-last"
+            ]
+          }
+        ]
+      },
+      "23": {
+        "end": {
+          "word": "غدا",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "32": {
+        "end": {
+          "word": "زرعا",
+          "counted_by": [
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "35": {
+        "end": {
+          "word": "أبدا",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "84": {
+        "end": {
+          "word": "سببا",
+          "counted_by": [
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "85": {
+        "end": {
+          "word": "سببا",
+          "counted_by": [
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "86": {
+        "internal": [
+          {
+            "word": "قوما",
+            "counted_by": [
+              "madani-first",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "89": {
+        "end": {
+          "word": "سببا",
+          "counted_by": [
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "92": {
+        "end": {
+          "word": "سببا",
+          "counted_by": [
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "103": {
+        "end": {
+          "word": "أعمالا",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "19": {
+      "1": {
+        "end": {
+          "word": "كهيعص",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "41": {
+        "internal": [
+          {
+            "word": "إبراهيم",
+            "counted_by": [
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "75": {
+        "internal": [
+          {
+            "word": "مدا",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "20": {
+      "1": {
+        "end": {
+          "word": "طه",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "33": {
+        "end": {
+          "word": "كثيرا",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "34": {
+        "end": {
+          "word": "كثيرا",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "39": {
+        "internal": [
+          {
+            "word": "مني",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "40": {
+        "internal": [
+          {
+            "word": "تحزن",
+            "counted_by": [
+              "dimashqi"
+            ]
+          },
+          {
+            "word": "فتونا",
+            "counted_by": [
+              "basri",
+              "dimashqi"
+            ]
+          },
+          {
+            "word": "مدين",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "41": {
+        "end": {
+          "word": "لنفسي",
+          "counted_by": [
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "47": {
+        "internal": [
+          {
+            "word": "إسرائيل",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "77": {
+        "internal": [
+          {
+            "word": "موسى",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "78": {
+        "end": {
+          "word": "غشيهم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "86": {
+        "internal": [
+          {
+            "word": "أسفا",
+            "counted_by": [
+              "madani-first",
+              "makki"
+            ]
+          },
+          {
+            "word": "حسنا",
+            "counted_by": [
+              "madani-last"
+            ]
+          }
+        ]
+      },
+      "87": {
+        "end": {
+          "word": "السامري",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "88": {
+        "internal": [
+          {
+            "word": "موسى",
+            "counted_by": [
+              "madani-first",
+              "makki"
+            ]
+          }
+        ],
+        "end": {
+          "word": "فنسي",
+          "counted_by": [
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "89": {
+        "internal": [
+          {
+            "word": "قولا",
+            "counted_by": [
+              "madani-last"
+            ]
+          }
+        ]
+      },
+      "92": {
+        "end": {
+          "word": "ضلوا",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "106": {
+        "end": {
+          "word": "صفصفا",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "123": {
+        "internal": [
+          {
+            "word": "هدى",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "131": {
+        "internal": [
+          {
+            "word": "الدنيا",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "21": {
+      "66": {
+        "end": {
+          "word": "يضركم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "22": {
+      "19": {
+        "end": {
+          "word": "الحميم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "20": {
+        "end": {
+          "word": "والجلود",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "42": {
+        "end": {
+          "word": "وثمود",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "43": {
+        "end": {
+          "word": "لوط",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "78": {
+        "internal": [
+          {
+            "word": "المسلمين",
+            "counted_by": [
+              "makki"
+            ]
+          }
+        ]
+      }
+    },
+    "23": {
+      "45": {
+        "internal": [
+          {
+            "word": "هارون",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "24": {
+      "36": {
+        "end": {
+          "word": "والآصال",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "43": {
+        "end": {
+          "word": "بالأبصار",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "26": {
+      "1": {
+        "end": {
+          "word": "طسم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "49": {
+        "internal": [
+          {
+            "word": "تعلمون",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "92": {
+        "end": {
+          "word": "تعبدون",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "210": {
+        "end": {
+          "word": "الشياطين",
+          "counted_by": [
+            "madani-first",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "27": {
+      "33": {
+        "internal": [
+          {
+            "word": "شديد",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "44": {
+        "internal": [
+          {
+            "word": "قوارير",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "28": {
+      "1": {
+        "end": {
+          "word": "طسم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "23": {
+        "internal": [
+          {
+            "word": "يسقون",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "29": {
+      "1": {
+        "end": {
+          "word": "الم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "29": {
+        "internal": [
+          {
+            "word": "السبيل",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "65": {
+        "internal": [
+          {
+            "word": "الدين",
+            "counted_by": [
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "30": {
+      "1": {
+        "end": {
+          "word": "الم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "2": {
+        "end": {
+          "word": "الروم",
+          "counted_by": [
+            "madani-first",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "4": {
+        "internal": [
+          {
+            "word": "سنين",
+            "counted_by": [
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "55": {
+        "internal": [
+          {
+            "word": "المجرمون",
+            "counted_by": [
+              "madani-first"
+            ]
+          }
+        ]
+      }
+    },
+    "31": {
+      "1": {
+        "end": {
+          "word": "الم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "32": {
+        "internal": [
+          {
+            "word": "الدين",
+            "counted_by": [
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "32": {
+      "1": {
+        "end": {
+          "word": "الم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "10": {
+        "internal": [
+          {
+            "word": "جديد",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "34": {
+      "15": {
+        "internal": [
+          {
+            "word": "وشمال",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "35": {
+      "7": {
+        "internal": [
+          {
+            "word": "شديد",
+            "counted_by": [
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "16": {
+        "end": {
+          "word": "جديد",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "19": {
+        "end": {
+          "word": "والبصير",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "20": {
+        "end": {
+          "word": "النور",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "22": {
+        "end": {
+          "word": "القبور",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "41": {
+        "internal": [
+          {
+            "word": "تزولا",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      },
+      "43": {
+        "internal": [
+          {
+            "word": "تبديلا",
+            "counted_by": [
+              "madani-last",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "36": {
+      "1": {
+        "end": {
+          "word": "يس",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "37": {
+      "22": {
+        "end": {
+          "word": "يعبدون",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "167": {
+        "end": {
+          "word": "ليقولون",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "38": {
+      "1": {
+        "end": {
+          "word": "الذكر",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "37": {
+        "end": {
+          "word": "وغواص",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "84": {
+        "end": {
+          "word": "أقول",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "39": {
+      "3": {
+        "internal": [
+          {
+            "word": "يختلفون",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "11": {
+        "end": {
+          "word": "الدين",
+          "counted_by": [
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "14": {
+        "end": {
+          "word": "ديني",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "17": {
+        "end": {
+          "word": "عباد",
+          "counted_by": [
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "20": {
+        "internal": [
+          {
+            "word": "الأنهار",
+            "counted_by": [
+              "madani-first",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "36": {
+        "end": {
+          "word": "هاد",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "39": {
+        "end": {
+          "word": "تعلمون",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "40": {
+      "1": {
+        "end": {
+          "word": "حم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "15": {
+        "end": {
+          "word": "التلاق",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "16": {
+        "internal": [
+          {
+            "word": "بارزون",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "18": {
+        "internal": [
+          {
+            "word": "كاظمين",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "53": {
+        "end": {
+          "word": "الكتاب",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "58": {
+        "internal": [
+          {
+            "word": "والبصير",
+            "counted_by": [
+              "madani-last",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "71": {
+        "end": {
+          "word": "يسحبون",
+          "counted_by": [
+            "madani-last",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "72": {
+        "internal": [
+          {
+            "word": "الحميم",
+            "counted_by": [
+              "madani-first",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "73": {
+        "end": {
+          "word": "تشركون",
+          "counted_by": [
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "41": {
+      "1": {
+        "end": {
+          "word": "حم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "13": {
+        "end": {
+          "word": "وثمود",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "42": {
+      "1": {
+        "end": {
+          "word": "حم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "2": {
+        "end": {
+          "word": "عسق",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "32": {
+        "end": {
+          "word": "كالأعلام",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "43": {
+      "1": {
+        "end": {
+          "word": "حم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "52": {
+        "internal": [
+          {
+            "word": "مهين",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri"
+            ]
+          }
+        ]
+      }
+    },
+    "44": {
+      "1": {
+        "end": {
+          "word": "حم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "34": {
+        "end": {
+          "word": "ليقولون",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "43": {
+        "end": {
+          "word": "الزقوم",
+          "counted_by": [
+            "madani-first",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "45": {
+        "end": {
+          "word": "البطون",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "45": {
+      "1": {
+        "end": {
+          "word": "حم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "46": {
+      "1": {
+        "end": {
+          "word": "حم",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "47": {
+      "4": {
+        "internal": [
+          {
+            "word": "أوزارها",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "15": {
+        "internal": [
+          {
+            "word": "للشاربين",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      }
+    },
+    "52": {
+      "1": {
+        "end": {
+          "word": "والطور",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "13": {
+        "end": {
+          "word": "دعا",
+          "counted_by": [
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "53": {
+      "28": {
+        "end": {
+          "word": "شيئا",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "29": {
+        "internal": [
+          {
+            "word": "تولى",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ],
+        "end": {
+          "word": "الدنيا",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "55": {
+      "1": {
+        "end": {
+          "word": "الرحمن",
+          "counted_by": [
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "3": {
+        "end": {
+          "word": "الإنسان",
+          "counted_by": [
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "10": {
+        "end": {
+          "word": "للأنام",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "35": {
+        "internal": [
+          {
+            "word": "نار",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "43": {
+        "end": {
+          "word": "المجرمون",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "56": {
+      "8": {
+        "internal": [
+          {
+            "word": "الميمنة",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "9": {
+        "internal": [
+          {
+            "word": "المشأمة",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "15": {
+        "end": {
+          "word": "موضونة",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "18": {
+        "internal": [
+          {
+            "word": "وأباريق",
+            "counted_by": [
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "22": {
+        "end": {
+          "word": "عين",
+          "counted_by": [
+            "madani-first",
+            "kufi"
+          ]
+        }
+      },
+      "25": {
+        "end": {
+          "word": "تأثيما",
+          "counted_by": [
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "27": {
+        "internal": [
+          {
+            "word": "اليمين",
+            "counted_by": [
+              "madani-first",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "35": {
+        "end": {
+          "word": "إنشاء",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "41": {
+        "internal": [
+          {
+            "word": "الشمال",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "42": {
+        "end": {
+          "word": "وحميم",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "47": {
+        "internal": [
+          {
+            "word": "يقولون",
+            "counted_by": [
+              "makki"
+            ]
+          }
+        ]
+      },
+      "49": {
+        "end": {
+          "word": "والآخرين",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "50": {
+        "internal": [
+          {
+            "word": "لمجموعون",
+            "counted_by": [
+              "madani-last",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "89": {
+        "internal": [
+          {
+            "word": "وريحان",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "57": {
+      "13": {
+        "end": {
+          "word": "العذاب",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "27": {
+        "internal": [
+          {
+            "word": "الإنجيل",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      }
+    },
+    "58": {
+      "20": {
+        "end": {
+          "word": "الأذلين",
+          "counted_by": [
+            "madani-first",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "65": {
+      "2": {
+        "internal": [
+          {
+            "word": "الآخر",
+            "counted_by": [
+              "dimashqi"
+            ]
+          }
+        ],
+        "end": {
+          "word": "مخرجا",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "10": {
+        "internal": [
+          {
+            "word": "الألباب",
+            "counted_by": [
+              "madani-first"
+            ]
+          }
+        ]
+      }
+    },
+    "67": {
+      "9": {
+        "internal": [
+          {
+            "word": "نذير",
+            "counted_by": [
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      }
+    },
+    "69": {
+      "1": {
+        "end": {
+          "word": "الحاقة",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "25": {
+        "internal": [
+          {
+            "word": "بشماله",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      }
+    },
+    "70": {
+      "4": {
+        "end": {
+          "word": "سنة",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "71": {
+      "23": {
+        "internal": [
+          {
+            "word": "سواعا",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ],
+        "end": {
+          "word": "ونسرا",
+          "counted_by": [
+            "madani-last",
+            "kufi"
+          ]
+        }
+      },
+      "24": {
+        "internal": [
+          {
+            "word": "كثيرا",
+            "counted_by": [
+              "madani-first",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "25": {
+        "internal": [
+          {
+            "word": "نارا",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "72": {
+      "22": {
+        "internal": [
+          {
+            "word": "أحد",
+            "counted_by": [
+              "makki"
+            ]
+          }
+        ],
+        "end": {
+          "word": "ملتحدا",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "73": {
+      "1": {
+        "end": {
+          "word": "المزمل",
+          "counted_by": [
+            "madani-first",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "15": {
+        "internal": [
+          {
+            "word": "رسولا",
+            "counted_by": [
+              "makki"
+            ]
+          }
+        ]
+      },
+      "17": {
+        "end": {
+          "word": "شيبا",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "74": {
+      "40": {
+        "end": {
+          "word": "يتساءلون",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "41": {
+        "end": {
+          "word": "المجرمين",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "basri",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "75": {
+      "16": {
+        "end": {
+          "word": "به",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "78": {
+      "40": {
+        "internal": [
+          {
+            "word": "قريبا",
+            "counted_by": [
+              "basri"
+            ]
+          }
+        ]
+      }
+    },
+    "79": {
+      "33": {
+        "end": {
+          "word": "ولأنعامكم",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "37": {
+        "end": {
+          "word": "طغى",
+          "counted_by": [
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "80": {
+      "24": {
+        "end": {
+          "word": "طعامه",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "32": {
+        "end": {
+          "word": "ولأنعامكم",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "33": {
+        "end": {
+          "word": "الصاخة",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "81": {
+      "26": {
+        "end": {
+          "word": "تذهبون",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "84": {
+      "7": {
+        "end": {
+          "word": "بيمينه",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "10": {
+        "end": {
+          "word": "ظهره",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "86": {
+      "15": {
+        "end": {
+          "word": "كيدا",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "89": {
+      "15": {
+        "internal": [
+          {
+            "word": "ونعمه",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "16": {
+        "internal": [
+          {
+            "word": "رزقه",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      },
+      "23": {
+        "internal": [
+          {
+            "word": "بجهنم",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      },
+      "29": {
+        "end": {
+          "word": "عبادي",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      }
+    },
+    "91": {
+      "14": {
+        "internal": [
+          {
+            "word": "فعقروها",
+            "counted_by": [
+              "madani-first"
+            ]
+          }
+        ]
+      }
+    },
+    "96": {
+      "9": {
+        "end": {
+          "word": "ينهى",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "kufi"
+          ]
+        }
+      },
+      "15": {
+        "internal": [
+          {
+            "word": "ينته",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      }
+    },
+    "97": {
+      "3": {
+        "internal": [
+          {
+            "word": "القدر",
+            "counted_by": [
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "98": {
+      "5": {
+        "internal": [
+          {
+            "word": "الدين",
+            "counted_by": [
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "99": {
+      "6": {
+        "internal": [
+          {
+            "word": "أشتاتا",
+            "counted_by": [
+              "madani-last",
+              "makki",
+              "basri",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "101": {
+      "1": {
+        "end": {
+          "word": "القارعة",
+          "counted_by": [
+            "kufi"
+          ]
+        }
+      },
+      "6": {
+        "end": {
+          "word": "موازينه",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      },
+      "8": {
+        "end": {
+          "word": "موازينه",
+          "counted_by": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "103": {
+      "1": {
+        "end": {
+          "word": "والعصر",
+          "counted_by": [
+            "madani-first",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
+      "3": {
+        "internal": [
+          {
+            "word": "بالحق",
+            "counted_by": [
+              "madani-last"
+            ]
+          }
+        ]
+      }
+    },
+    "106": {
+      "4": {
+        "internal": [
+          {
+            "word": "جوع",
+            "counted_by": [
+              "madani-first",
+              "madani-last",
+              "makki"
+            ]
+          }
+        ]
+      }
+    },
+    "107": {
+      "6": {
+        "end": {
+          "word": "يراءون",
+          "counted_by": [
+            "basri",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "112": {
+      "3": {
+        "internal": [
+          {
+            "word": "يلد",
+            "counted_by": [
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    },
+    "114": {
+      "4": {
+        "internal": [
+          {
+            "word": "الوسواس",
+            "counted_by": [
+              "makki",
+              "dimashqi"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

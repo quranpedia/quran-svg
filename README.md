@@ -30,7 +30,6 @@ Pages that contain more than one surah also have surah-specific variants, e.g.
 | ʿAsim | Hafs | King Fahd Complex — KFQC | `hafs/kfqc` | 604 | 6236 |
 | Nafiʿ | Warsh | King Fahd Complex — KFQC | `warsh/kfqc` | 604 | 6214 |
 | Nafiʿ | Qalun | King Fahd Complex — KFQC | `qalon/kfqc` | 604 | 6214 |
-| Nafiʿ | Qalun | Libyan Endowments — مصحف الأوقاف الليبي | `qalon/libya-awqaf` | 612 | 6214 |
 | Abu ʿAmr | Al-Douri | King Fahd Complex — KFQC | `douri/kfqc` | 604 | 6205 |
 | ʿAsim | Shuʿbah | King Fahd Complex — KFQC | `shubah/kfqc` | 604 | 6236 |
 
@@ -55,7 +54,10 @@ Give the glyph paths `pointer-events:none` so the lower polygons receive clicks.
 ## Coordinates & counts
 
 - Coordinates are each mushaf's **native page pixels** (polygons and glyphs share one
-  space — no rescaling needed). The Libyan Awqaf mushaf uses `viewBox 0 0 1120 2250`.
+  space — no rescaling needed). Pages 3–604 are `viewBox 0 0 345 550`, except in Qalun and
+  Warsh, whose user space starts at x = −6: `viewBox -6 0 345 550`. The opening spread,
+  pages 1–2, is `235 235`. Surah-specific variants keep their page's x-origin and width and
+  crop the height, so read the `viewBox` rather than assuming it.
 - Ayah counts follow **each mushaf's own medallions** and differ between qiraat
   (and occasionally between editions). The mushaf is authoritative.
 
@@ -78,8 +80,6 @@ location ~ \.json\.br$ { add_header Content-Encoding br; default_type applicatio
   **worldwide**. The **only** restriction is that **printing physical muṣḥafs for commercial
   sale** is reserved to the Complex (Saudi Royal Decrees). So: free for essentially any
   digital/app/web use — you just can't use it to print-and-sell physical muṣḥafs.
-- **Libyan Awqaf edition** (`qalon/libya-awqaf`): **free for non-commercial use only**;
-  **commercial use requires prior approval from the Libyan Ministry of Awqaf**.
 - **The Qur'anic text itself** is not subject to copyright and may be freely reproduced, but
   must never be altered and its sanctity must be preserved.
 
