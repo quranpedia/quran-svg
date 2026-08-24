@@ -54,8 +54,10 @@ Give the glyph paths `pointer-events:none` so the lower polygons receive clicks.
 ## Coordinates & counts
 
 - Coordinates are each mushaf's **native page pixels** (polygons and glyphs share one
-  space — no rescaling needed). Every page is `viewBox 0 0 345 550`, except that Qalun and
-  Warsh pages start at x = −6: `viewBox -6 0 345 550`.
+  space — no rescaling needed). Pages 3–604 are `viewBox 0 0 345 550`, except in Qalun and
+  Warsh, whose user space starts at x = −6: `viewBox -6 0 345 550`. The opening spread,
+  pages 1–2, is `235 235`. Surah-specific variants keep their page's x-origin and width and
+  crop the height, so read the `viewBox` rather than assuming it.
 - Ayah counts follow **each mushaf's own medallions** and differ between qiraat
   (and occasionally between editions). The mushaf is authoritative.
 
