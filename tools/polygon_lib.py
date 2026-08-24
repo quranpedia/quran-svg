@@ -3,8 +3,15 @@
 
 Everything here is derived from a page SVG alone: the ۝ end-of-ayah markers drawn in
 ``<g id="ayah_markers">``, and the page's own ink as rendered by ``rsvg-convert``.  No
-function reads the shipped polygons to decide what a polygon should be, so the audit's
-verdict and the generator's output are independent of the data being checked.
+function reads the shipped polygons to decide what a polygon should be.
+
+Note what that does *not* mean.  The audit imports ``build_polygons`` from here, so once a
+page has been built, the audit's reading-order tier is comparing the generator against
+itself: give ``INKCOL`` a wrong value, rebuild, and the audit will call the result clean.
+The checks that can genuinely falsify a build are the ones that do not route through this
+module's model of a page -- ayah identity, the file derivatives, rect-on-rect overlap, a
+marker landing outside its own polygon, the marker centres against the SVG's own
+``ayah:x``/``ayah:y``, and the fifteen-line grid.
 
 The model a page follows:
 
@@ -31,6 +38,7 @@ PITCH = (33.0, 39.0)  # plausible line pitch, in page units, for the full-size p
 NARROW = 0.90         # an unmarked band narrower than this fraction of the text is decoration
 JUST = 0.85           # a band at least this wide counts as a justified line
 INKCOL = 1            # ink pixels in a column before it counts as ink
+FAINT = 0.05          # a band with less than this share of the page's median ink is not a line
 EPS = 0.01
 
 _RECT = re.compile(r"M\s*([-\d.]+)\s+([-\d.]+)\s+L\s*([-\d.]+)\s+([-\d.]+)"
@@ -159,6 +167,25 @@ def markers(svg_text):
     return [(x, y, hw) for (x, y), hw in sorted(out.items(), key=lambda t: (t[0][1], -t[0][0]))]
 
 
+def translation_fit(mk, entries, tol=1.5):
+    """(matched, dx, dy) — the offset that carries markers.json into page space.
+
+    Hafs, Douri and Shu'bah state their marker coordinates in page space, so the offset is
+    zero.  Qalun and Warsh state theirs in a different frame, offset by a translation that
+    varies from page to page.  Fit it by consensus rather than assuming either.
+    """
+    best = (0, 0.0, 0.0)
+    for x, y, _ in mk:
+        for e in entries:
+            dx, dy = e["x"] - x, e["y"] - y
+            n = sum(1 for mx, my, _ in mk
+                    if any(abs(f["x"] - dx - mx) < tol and abs(f["y"] - dy - my) < tol
+                           for f in entries))
+            if n > best[0]:
+                best = (n, dx, dy)
+    return best
+
+
 def recover_markers(mk, entries, tol=1.5):
     """(markers, recovered) — ayah ends whose ۝ rosette was never drawn.
 
@@ -171,16 +198,7 @@ def recover_markers(mk, entries, tol=1.5):
     """
     if not mk or not entries:
         return mk, []
-    best = (0, 0.0, 0.0)
-    for x, y, _ in mk:
-        for e in entries:
-            dx, dy = e["x"] - x, e["y"] - y
-            n = sum(1 for mx, my, _ in mk
-                    if any(abs(f["x"] - dx - mx) < tol and abs(f["y"] - dy - my) < tol
-                           for f in entries))
-            if n > best[0]:
-                best = (n, dx, dy)
-    n, dx, dy = best
+    n, dx, dy = translation_fit(mk, entries, tol)
     if n < len(mk):
         return mk, []
     half = sorted(t[2] for t in mk)[len(mk) // 2]
@@ -235,6 +253,7 @@ def line_grid(mask, marker_ys, box, pitch=PITCH, z=Z):
         hi = min(len(prof), int((e - y0 + 0.28 * h) * z))
         snapped.append((lo + int(np.argmin(prof[lo:hi]))) / z + y0 if hi > lo else e)
     snapped.append(edges[-1])
+    snapped = [min(max(e, y0), y0 + box[3]) for e in snapped]      # never leave the page
     bands = []
     for a, b in zip(snapped, snapped[1:]):
         sl = mask[max(0, int((a - y0) * z)):int((b - y0) * z)]
@@ -244,6 +263,13 @@ def line_grid(mask, marker_ys, box, pitch=PITCH, z=Z):
             continue
         bands.append(dict(top=a, bot=b, x0=cols.min() / z + x0, x1=cols.max() / z + x0,
                           ink=int(sl.sum()), col=col))
+    # A comb fitted to 15 lines can put an extra tooth over the descenders hanging below the
+    # last line -- a kasra under the final word is enough to inject a phantom sixteenth band,
+    # which then reads as "the page ends mid-ayah".  Real lines carry at least a fifth of the
+    # page's median ink; these specks carry well under a hundredth.
+    if bands:
+        floor = FAINT * float(np.median([b["ink"] for b in bands]))
+        bands = [b for b in bands if b["ink"] >= floor]
     return h, bands
 
 

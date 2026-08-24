@@ -32,19 +32,26 @@ import numpy as np
 
 import qiraat_map
 from polygon_lib import (EPS, INKCOL, Z, band_spans, build_polygons, ink_mask,
-                         line_grid, markers, read_page, recover_markers, score, text_margins)
+                         line_grid, markers, read_page, recover_markers, score, text_margins,
+                         translation_fit)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MUSHAFS = ("douri", "hafs", "qalon", "shubah", "warsh")
 FIRST_PAGE, LAST_PAGE = 3, 604          # 1-2 are the ornate opening spread, hand-made
 
 IDENTITY_SIGS = ("COUNT", "GAP", "DUP", "SURAHJSON", "IDSEQ")
-MARKER_SIGS = ("MARKERCOUNT", "MARKER", "STRAY", "NOROSETTE")
-GEOMETRY_SIGS = ("ORDER", "BREAK", "OVERLAP", "UNCOVERED", "BADID", "NONRECT", "DEGENERATE")
+MARKER_SIGS = ("MARKERCOUNT", "MARKER", "STRAY", "NOROSETTE", "MARKERMETA")
+GEOMETRY_SIGS = ("ORDER", "BREAK", "OVERLAP", "UNCOVERED", "BADID", "NONRECT",
+                 "DEGENERATE", "LINES")
 FILE_SIGS = ("JSONDIFF", "BRDIFF", "VARIANT")
 TIERS = {"identity": IDENTITY_SIGS, "marker": MARKER_SIGS,
          "geometry": GEOMETRY_SIGS, "files": FILE_SIGS}
 
+
+LINES_PER_PAGE = 15      # every full-size KFQC page is a fifteen-line grid
+META_TOL = 8.0           # ayah:x/ayah:y drift, in units; a line band is ~36
+
+_AYAH_ATTRS = re.compile(r'ayah:x="([-\d.]+)" ayah:y="([-\d.]+)"')
 
 _MARKERS_JSON = {}
 
@@ -60,6 +67,28 @@ def markers_json(mushaf):
                     by_page[entry["page"]].append(entry)
         _MARKERS_JSON[mushaf] = by_page
     return _MARKERS_JSON[mushaf]
+
+
+def marker_metadata(text):
+    """The ``ayah:x``/``ayah:y`` the SVG states for each marker, in the mushaf's own frame.
+
+    This is the one piece of evidence the generator never touches, so comparing it against
+    the marker centres derived from the transforms checks that layer without routing through
+    any shared code.
+    """
+    k = text.find('<g id="ayah_markers"')
+    if k < 0:
+        return []
+    depth, end = 0, len(text)
+    for m in re.finditer(r"<g\b|</g>", text[k:]):
+        if m.group(0) == "</g>":
+            depth -= 1
+            if depth == 0:
+                end = k + m.end()
+                break
+        else:
+            depth += 1
+    return [(float(x), float(y)) for x, y in _AYAH_ATTRS.findall(text[k:end])]
 
 
 def page_path(mushaf, page, kind="svg", ext="svg"):
@@ -108,8 +137,30 @@ def audit_page(args):
         found.append(("MARKERCOUNT", "%d polygons but %d marker rosettes drawn"
                       % (len(polys) + (1 if continuation else 0), len(mk))))
 
+    # the marker layer, checked against the SVG's own metadata rather than against itself
+    meta = marker_metadata(text)
+    if meta and mk:
+        if len(meta) != len(mk):
+            found.append(("MARKERMETA", "%d markers derived from the transforms but %d "
+                          "ayah:x/ayah:y attributes" % (len(mk), len(meta))))
+        else:
+            # The attributes are anchored on the numeral, not on the medallion, so they
+            # drift by a few units on wider numbers: across all 31,061 markers the worst
+            # disagreement is 6.0 units.  A line is ~36 units, so 8 still catches a marker
+            # attributed to the wrong line or the wrong medallion, which is the point.
+            entries = [{"x": x, "y": y} for x, y in meta]
+            n, dx, dy = translation_fit(mk, entries, tol=META_TOL)
+            if n < len(mk):
+                worst = max(min(max(abs(e["x"] - dx - x), abs(e["y"] - dy - y))
+                                for e in entries) for x, y, _ in mk)
+                found.append(("MARKERMETA", "%d of %d markers agree with the page's own "
+                              "ayah:x/ayah:y (worst miss %.2f units)" % (n, len(mk), worst)))
+
     mask = ink_mask(svg)
     pitch, bands = line_grid(mask, [m[1] for m in mk], box)
+    if box[3] > 400 and len(bands) != LINES_PER_PAGE:
+        found.append(("LINES", "%d line bands found, expected %d"
+                      % (len(bands), LINES_PER_PAGE)))
     old = {p["key"]: [list(r) for r in p["rects"]] for p in polys}
     if continuation:
         old[continuation["key"]] = [list(r) for r in continuation["rects"]]

@@ -38,7 +38,7 @@ import brotli
 import numpy as np
 
 from polygon_lib import (INKCOL, Z, ink_mask, line_grid, markers, read_page, recover_markers,
-                         viewbox)
+                         translation_fit, viewbox)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MUSHAFS = ("douri", "hafs", "qalon", "shubah", "warsh")
@@ -103,14 +103,15 @@ def missing_rosettes(mushaf, page, entries):
     text, box, polys = read_page(svg)
     mk = markers(text)
     if len(mk) >= len(polys):
-        return text, box, []
+        return text, box, [], []
     filled, recovered = recover_markers(mk, entries)
     if not recovered:
-        return text, box, []
+        return text, box, [], []
+    _, fit_dx, fit_dy = translation_fit(mk, entries)
     mask = ink_mask(svg)
     _, bands = line_grid(mask, [m[1] for m in filled], box)
     if not bands:
-        return text, box, []
+        return text, box, [], []
 
     def band_of(y):
         for i, b in enumerate(bands):
@@ -118,7 +119,7 @@ def missing_rosettes(mushaf, page, entries):
                 return i
         return min(range(len(bands)), key=lambda i: abs((bands[i]["top"] + bands[i]["bot"]) / 2 - y))
 
-    out = []
+    out, meta = [], []
     for cx, cy, _ in recovered:
         band = band_of(cy)
         bb = numeral_box(mask, bands, band, cx, box)
@@ -126,28 +127,91 @@ def missing_rosettes(mushaf, page, entries):
             continue
         out.append((round((bb[0] + bb[2]) / 2, 3), round((bb[1] + bb[3]) / 2, 3),
                     round(bb[2] - bb[0], 2), round(bb[3] - bb[1], 2)))
-    return text, box, out
+        # the markers.json entry this recovered marker came from, in the mushaf's own frame
+        near = min(entries, key=lambda e: abs(e["x"] - fit_dx - cx) + abs(e["y"] - fit_dy - cy))
+        meta.append((near["x"], near["y"]))
+    return text, box, out, meta
 
 
-def draw(text, centres):
-    """The svg with a rosette added at each centre, copied from the page's own marker."""
+def marker_children(text):
+    """(start, end) of each top-level child of the marker group, in document order."""
+    k = text.find('<g id="ayah_markers"')
+    if k < 0:
+        return []
+    k = text.find(">", k) + 1
+    out, depth, start = [], 0, None
+    for m in re.finditer(r"<g\b|</g>", text[k:]):
+        if m.group(0) == "</g>":
+            depth -= 1
+            if depth == 0:
+                out.append((k + start, k + m.end()))
+            elif depth < 0:
+                break
+        else:
+            if depth == 0:
+                start = m.start()
+            depth += 1
+    return out
+
+
+def draw(text, centres, meta_xy=None):
+    """The svg with a rosette added at each centre, copied from the page's own marker.
+
+    Each marker in the group is a pair: the rosette glyph, then a sibling carrying the
+    numeral and the ``ayah:x``/``ayah:y`` attributes.  The pair is inserted in reading order
+    so document order still matches the page, and the sibling is attribute-only — these four
+    ayah ends already have their numeral drawn in the content layer, and a second copy would
+    print the number twice.
+    """
     template = rosette_template(text)
     if template is None:
         return text, []
     element, _, (sx, sy) = template
     gx, gy = glyph_centre(element)
     a, b, c, d, e, f = page_matrix(text)
-    added = []
-    insert_at = text.find('<g id="ayah_markers"')
-    insert_at = text.find(">", insert_at) + 1
-    new_elements = []
-    for cx, cy, _, _ in centres:
+
+    children = marker_children(text)
+    rosettes = []                       # (index, centre_x, centre_y) of each existing rosette
+    offsets = []                        # numeral translate minus rosette translate
+    for i, (start, end) in enumerate(children):
+        m = re.match(r'<g transform="translate\(([-\d.eE]+) ([-\d.eE]+)\) scale', text[start:end])
+        if m:
+            tx, ty = float(m.group(1)), float(m.group(2))
+            rosettes.append((i, a * (tx + sx * gx) + e, d * (ty + sy * gy) + f, tx, ty))
+        elif rosettes:
+            n = re.match(r'<g transform="translate\(([-\d.eE]+) ([-\d.eE]+)\)"', text[start:end])
+            if n:
+                offsets.append((float(n.group(1)) - rosettes[-1][3],
+                                float(n.group(2)) - rosettes[-1][4]))
+    ox = float(np.median([o[0] for o in offsets])) if offsets else 0.0
+    oy = float(np.median([o[1] for o in offsets])) if offsets else 0.0
+
+    def reading_key(cx, cy):
+        return (round(cy / 8.0), -cx)   # line first, then right to left
+
+    inserts, added = [], []
+    for n, (cx, cy, _, _) in enumerate(centres):
         tx = (cx - e) / a - sx * gx
         ty = (cy - f) / d - sy * gy
-        new_elements.append(re.sub(r'translate\([-\d.eE]+ [-\d.eE]+\)',
-                                   "translate(%.3f %.3f)" % (tx, ty), element, count=1))
+        rosette = re.sub(r'translate\([-\d.eE]+ [-\d.eE]+\)',
+                         "translate(%.3f %.3f)" % (tx, ty), element, count=1)
+        meta = ""
+        if meta_xy and n < len(meta_xy) and meta_xy[n]:
+            meta = ('<g transform="translate(%.3f %.3f)" ayah:x="%.2f" ayah:y="%.2f"></g>'
+                    % (tx + ox, ty + oy, meta_xy[n][0], meta_xy[n][1]))
+        after = [r for r in rosettes if reading_key(r[1], r[2]) < reading_key(cx, cy)]
+        at = children[after[-1][0]][1] if after else children[0][0]
+        # a rosette is followed by its sibling; step past it too
+        idx = (after[-1][0] + 1) if after else -1
+        if 0 <= idx < len(children) and not re.match(
+                r'<g transform="translate\([-\d.eE]+ [-\d.eE]+\) scale', text[children[idx][0]:children[idx][1]]):
+            at = children[idx][1]
+        inserts.append((at, rosette + meta))
         added.append((cx, cy))
-    return text[:insert_at] + "".join(new_elements) + text[insert_at:], added
+
+    for at, blob in sorted(inserts, reverse=True):
+        text = text[:at] + blob + text[at:]
+    return text, added
 
 
 def main(argv=None):
@@ -169,10 +233,10 @@ def main(argv=None):
             svg = os.path.join(ROOT, "mushafs", mushaf, "kfqc", "svg", "%03d.svg" % page)
             if not os.path.exists(svg):
                 continue
-            text, box, centres = missing_rosettes(mushaf, page, by_page.get(page, []))
+            text, box, centres, meta = missing_rosettes(mushaf, page, by_page.get(page, []))
             if not centres:
                 continue
-            new_text, added = draw(text, centres)
+            new_text, added = draw(text, centres, meta)
             for (cx, cy, w, h) in centres:
                 print("%s p%-3d rosette at (%.2f, %.2f), around a numeral %.1f x %.1f"
                       % (mushaf, page, cx, cy, w, h))
@@ -190,7 +254,7 @@ def main(argv=None):
                 vpath = os.path.join(os.path.dirname(svg), variant)
                 with open(vpath, encoding="utf-8") as fh:
                     vtext = fh.read()
-                vnew, _ = draw(vtext, centres)
+                vnew, _ = draw(vtext, centres, meta)
                 with open(vpath, "w", encoding="utf-8") as fh:
                     fh.write(vnew)
                 vbr = os.path.join(ROOT, "mushafs", mushaf, "kfqc", "svg-br",

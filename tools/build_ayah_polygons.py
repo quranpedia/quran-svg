@@ -77,6 +77,21 @@ def regenerate(mushaf, page):
     text, box, polys = read_page(svg_path)
     if not polys:
         return None, None, "no ayah polygons on the page"
+    tail_key, tail_attrs = None, None
+    nxt = paths(mushaf, page + 1)[0]
+    if os.path.exists(nxt):
+        _, _, next_polys = read_page(nxt)
+        if next_polys:
+            tail_key, tail_attrs = next_polys[0]["key"], next_polys[0]["attrs"]
+
+    # A continuation polygon written by an earlier run belongs to the next page's first ayah,
+    # not to this page's own list.  Setting it aside is what makes the generator idempotent:
+    # leave it in and the page has one more polygon than it has markers, and gets skipped.
+    existing_tail = None
+    if (len(polys) > 1 and tail_key and polys[-1]["key"] == tail_key
+            and tail_key not in {p["key"] for p in polys[:-1]}):
+        existing_tail = polys.pop()
+
     keys = [(p["surah"], p["ayah"]) for p in polys]
     mk = markers(text)
     recovered = []
@@ -90,13 +105,6 @@ def regenerate(mushaf, page):
     if not bands:
         return None, None, "no inked lines found on the page"
 
-    tail_key, tail_attrs = None, None
-    nxt = paths(mushaf, page + 1)[0]
-    if os.path.exists(nxt):
-        _, _, next_polys = read_page(nxt)
-        if next_polys:
-            tail_key, tail_attrs = next_polys[0]["key"], next_polys[0]["attrs"]
-
     built, _, _, notes, has_tail = build_polygons(bands, mk, keys, box, tail_key)
 
     # marker coordinates, paired with the ayat in reading order
@@ -109,8 +117,8 @@ def regenerate(mushaf, page):
     marker_of = {"%d:%d" % k: m for k, m in zip(keys, ordered)}
 
     geometry = {k: path_d(merge_rects(v)) for k, v in built.items()}
-    new_text = rewrite_polygons(text, polys, geometry,
-                                tail_key if has_tail else None, tail_attrs)
+    new_text = rewrite_polygons(text, polys, geometry, tail_key if has_tail else None,
+                                tail_attrs, existing_tail)
 
     entries = []
     for p in polys:
@@ -132,9 +140,10 @@ def regenerate(mushaf, page):
                                    tail_attrs=tail_attrs, notes=notes)
 
 
-def rewrite_polygons(text, polys, geometry, tail_key=None, tail_attrs=None):
+def rewrite_polygons(text, polys, geometry, tail_key=None, tail_attrs=None, existing_tail=None):
     """The same svg with every ayahPolygon's ``d`` replaced, a malformed ``id`` repaired, and
-    the continuation polygon appended.  Everything else is left byte for byte."""
+    the continuation polygon written, rewritten or dropped.  Everything else is left byte for
+    byte."""
     out, cursor = [], 0
     for i, p in enumerate(polys):
         start, end = p["span"]
@@ -147,7 +156,14 @@ def rewrite_polygons(text, polys, geometry, tail_key=None, tail_attrs=None):
         out.append(text[cursor:start])
         out.append(element)
         cursor = end
-    if tail_key and tail_attrs:
+    if existing_tail is not None:
+        start, end = existing_tail["span"]
+        out.append(text[cursor:start])
+        if tail_key:                      # rewrite the one already there
+            out.append(text[start:end].replace('d="%s"' % existing_tail["d"],
+                                               'd="%s"' % geometry[tail_key]))
+        cursor = end                      # otherwise drop it: the page no longer needs one
+    elif tail_key and tail_attrs:
         attrs = " ".join('%s="%s"' % (k, tail_attrs[k])
                          for k in ("fill-opacity", "id", "number", "ayah", "surah")
                          if k in tail_attrs)
