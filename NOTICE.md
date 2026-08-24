@@ -42,12 +42,6 @@ media, web, and software use — worldwide. The **only** restriction is the phys
 **print‑for‑commercial‑sale** trade of muṣḥafs, which is reserved to the Complex.
 Source: <https://qurancomplex.gov.sa>.
 
-### 2.2 Libyan Ministry of Endowments (Awqaf) — مصحف الأوقاف الليبي
-Covers: `qalon/libya-awqaf`.
-
-This edition is **free for non‑commercial use only**. **Commercial use requires prior approval
-from the Libyan Ministry of Endowments (Awqaf).**
-
 ## 3. This repository's own contribution — CC0 1.0 (public domain)
 
 Everything **we** authored — the ayah‑polygon hit‑layer, the JSON metadata (per‑page

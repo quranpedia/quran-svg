@@ -49,7 +49,7 @@ TIERS = {"identity": IDENTITY_SIGS, "marker": MARKER_SIGS,
 
 
 LINES_PER_PAGE = 15      # every full-size KFQC page is a fifteen-line grid
-META_TOL = 8.0           # ayah:x/ayah:y drift, in units; a line band is ~36
+META_TOL = 8.0           # ayah:x/ayah:y drift: worst measured 7.35; a line band is ~36
 
 _AYAH_ATTRS = re.compile(r'ayah:x="([-\d.]+)" ayah:y="([-\d.]+)"')
 
@@ -145,9 +145,10 @@ def audit_page(args):
                           "ayah:x/ayah:y attributes" % (len(mk), len(meta))))
         else:
             # The attributes are anchored on the numeral, not on the medallion, so they
-            # drift by a few units on wider numbers: across all 31,061 markers the worst
-            # disagreement is 6.0 units.  A line is ~36 units, so 8 still catches a marker
-            # attributed to the wrong line or the wrong medallion, which is the point.
+            # drift on wider numbers.  Measured with this same metric over all 31,061
+            # markers: median 0.13, p99 2.27, worst 7.35 (shubah p313).  The tolerance
+            # therefore has 0.65 units of headroom, not much -- but a marker attributed to
+            # the wrong line is ~36 units out, which is what this check exists to catch.
             entries = [{"x": x, "y": y} for x, y in meta]
             n, dx, dy = translation_fit(mk, entries, tol=META_TOL)
             if n < len(mk):
@@ -158,6 +159,9 @@ def audit_page(args):
 
     mask = ink_mask(svg)
     pitch, bands = line_grid(mask, [m[1] for m in mk], box)
+    if not bands:
+        found.append(("LINES", "no inked line bands found on the page"))
+        return page, found, keys
     if box[3] > 400 and len(bands) != LINES_PER_PAGE:
         found.append(("LINES", "%d line bands found, expected %d"
                       % (len(bands), LINES_PER_PAGE)))
@@ -303,13 +307,37 @@ def audit_files(mushaf, page, text, polys):
             found.append(("BRDIFF", "svg-br/%03d.svg.br is unreadable: %s" % (page, exc)))
 
     page_d = [p["d"].strip() for p in polys]
-    for variant in sorted(os.listdir(os.path.join(ROOT, "mushafs", mushaf, "kfqc", "svg"))):
-        if not variant.startswith("%03d-surah" % page):
+    base = os.path.join(ROOT, "mushafs", mushaf, "kfqc")
+    for variant in sorted(os.listdir(os.path.join(base, "svg"))):
+        if not re.fullmatch(r"%03d-surah\d+\.svg" % page, variant):
             continue
-        _, _, vpolys = read_page(os.path.join(ROOT, "mushafs", mushaf, "kfqc", "svg", variant))
+        stem = variant[:-4]
+        with open(os.path.join(base, "svg", variant), encoding="utf-8") as fh:
+            vtext = fh.read()
+        _, _, vpolys = read_page(os.path.join(base, "svg", variant))
         if [p["d"].strip() for p in vpolys] != page_d:
             found.append(("VARIANT", "%s carries different polygon geometry from the page"
                           % variant))
+        vjson = os.path.join(base, "json", stem + ".json")
+        if not os.path.exists(vjson):
+            found.append(("VARIANT", "no json/%s.json" % stem))
+        else:
+            with open(vjson, encoding="utf-8") as fh:
+                ventries = json.load(fh)
+            if [e["polygon"].strip() for e in ventries] != [p["d"].strip() for p in vpolys]:
+                found.append(("VARIANT", "json/%s.json does not match its svg" % stem))
+        vbr = os.path.join(base, "svg-br", stem + ".svg.br")
+        if not os.path.exists(vbr):
+            found.append(("VARIANT", "no svg-br/%s.svg.br" % stem))
+        else:
+            with open(vbr, "rb") as fh:
+                blob = fh.read()
+            try:
+                if brotli.decompress(blob) != vtext.encode("utf-8"):
+                    found.append(("VARIANT", "svg-br/%s.svg.br does not decompress to its svg"
+                                  % stem))
+            except Exception as exc:                              # noqa: BLE001
+                found.append(("VARIANT", "svg-br/%s.svg.br is unreadable: %s" % (stem, exc)))
     return found
 
 

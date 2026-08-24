@@ -229,11 +229,20 @@ def write_variant(mushaf, page, stem, entries, stats, dry):
     svg_path, json_path, br_path = paths(mushaf, page, stem)
     text, _, polys = read_page(svg_path)
     geometry = stats["geometry"]
-    if any(p["key"] not in geometry for p in polys):
+    tail_key = stats["tail_key"] if stats["tail"] else None
+
+    # Same as regenerate(): a continuation polygon left by an earlier run is not one of the
+    # page's own.  Without this the crop would keep the old one *and* gain a fresh copy on
+    # every run.
+    existing_tail = None
+    if (len(polys) > 1 and stats["tail_key"] and polys[-1]["key"] == stats["tail_key"]
+            and stats["tail_key"] not in {q["key"] for q in polys[:-1]}):
+        existing_tail = polys.pop()
+
+    if any(q["key"] not in geometry for q in polys):
         return 0
-    new_text = rewrite_polygons(text, polys, geometry,
-                                stats["tail_key"] if stats["tail"] else None,
-                                stats["tail_attrs"])
+    new_text = rewrite_polygons(text, polys, geometry, tail_key,
+                                stats["tail_attrs"], existing_tail)
     if not dry:
         with open(svg_path, "w", encoding="utf-8") as fh:
             fh.write(new_text)

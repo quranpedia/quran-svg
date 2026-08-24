@@ -265,8 +265,9 @@ def line_grid(mask, marker_ys, box, pitch=PITCH, z=Z):
                           ink=int(sl.sum()), col=col))
     # A comb fitted to 15 lines can put an extra tooth over the descenders hanging below the
     # last line -- a kasra under the final word is enough to inject a phantom sixteenth band,
-    # which then reads as "the page ends mid-ayah".  Real lines carry at least a fifth of the
-    # page's median ink; these specks carry well under a hundredth.
+    # which then reads as "the page ends mid-ayah".  Measured over the whole corpus, the
+    # faintest real band carries 0.188 of its page's median (a surah header) while these
+    # specks carry 0.003 to 0.006, so the cut sits in a wide gap.
     if bands:
         floor = FAINT * float(np.median([b["ink"] for b in bands]))
         bands = [b for b in bands if b["ink"] >= floor]
