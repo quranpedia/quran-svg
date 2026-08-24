@@ -32,7 +32,7 @@ import numpy as np
 
 import qiraat_map
 from polygon_lib import (EPS, INKCOL, Z, band_spans, build_polygons, ink_mask,
-                         line_grid, markers, read_page, score, text_margins)
+                         line_grid, markers, read_page, recover_markers, score, text_margins)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MUSHAFS = ("douri", "hafs", "qalon", "shubah", "warsh")
@@ -44,6 +44,22 @@ GEOMETRY_SIGS = ("ORDER", "BREAK", "OVERLAP", "UNCOVERED", "BADID", "NONRECT", "
 FILE_SIGS = ("JSONDIFF", "BRDIFF", "VARIANT")
 TIERS = {"identity": IDENTITY_SIGS, "marker": MARKER_SIGS,
          "geometry": GEOMETRY_SIGS, "files": FILE_SIGS}
+
+
+_MARKERS_JSON = {}
+
+
+def markers_json(mushaf):
+    """markers.json grouped by page, loaded once."""
+    if mushaf not in _MARKERS_JSON:
+        path = os.path.join(ROOT, "mushafs", mushaf, "kfqc", "json", "markers.json")
+        by_page = collections.defaultdict(list)
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as fh:
+                for entry in json.load(fh):
+                    by_page[entry["page"]].append(entry)
+        _MARKERS_JSON[mushaf] = by_page
+    return _MARKERS_JSON[mushaf]
 
 
 def page_path(mushaf, page, kind="svg", ext="svg"):
@@ -80,6 +96,11 @@ def audit_page(args):
         if next_polys:
             next_first = next_polys[0]["key"]
     mk = markers(text)
+    if len(mk) < len(polys):
+        mk, rescued = recover_markers(mk, markers_json(mushaf).get(page, []))
+        for x, y, _ in rescued:
+            found.append(("NOROSETTE", "an ayah ends at (%.2f, %.2f) with a bare numeral and no "
+                          "۝ rosette in the svg; markers.json supplied the position" % (x, y)))
     if polys and len(polys) == len(mk) + 1 and polys[-1]["key"] == next_first:
         continuation = polys.pop()
         keys = keys[:-1]

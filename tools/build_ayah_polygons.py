@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import brotli
 
 from polygon_lib import (build_polygons, ink_mask, line_grid, markers, merge_rects,
-                         path_d, read_page)
+                         path_d, read_page, recover_markers)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MUSHAFS = ("douri", "hafs", "qalon", "shubah", "warsh")
@@ -55,6 +55,22 @@ def variants(mushaf, page):
                   if re.fullmatch(r"%03d-surah\d+\.svg" % page, f))
 
 
+_MARKERS_JSON = {}
+
+
+def markers_json(mushaf):
+    """markers.json grouped by page, loaded once."""
+    if mushaf not in _MARKERS_JSON:
+        path = os.path.join(ROOT, "mushafs", mushaf, "kfqc", "json", "markers.json")
+        by_page = collections.defaultdict(list)
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as fh:
+                for entry in json.load(fh):
+                    by_page[entry["page"]].append(entry)
+        _MARKERS_JSON[mushaf] = by_page
+    return _MARKERS_JSON[mushaf]
+
+
 def regenerate(mushaf, page):
     """(svg_text, json_entries, stats) for one page, or (None, None, reason)."""
     svg_path, _, _ = paths(mushaf, page)
@@ -63,9 +79,12 @@ def regenerate(mushaf, page):
         return None, None, "no ayah polygons on the page"
     keys = [(p["surah"], p["ayah"]) for p in polys]
     mk = markers(text)
+    recovered = []
+    if len(mk) < len(polys):
+        mk, recovered = recover_markers(mk, markers_json(mushaf).get(page, []))
     if len(mk) != len(polys):
-        return None, None, ("%d polygons but %d marker rosettes — the missing rosette has to "
-                            "be resolved by hand" % (len(polys), len(mk)))
+        return None, None, ("%d polygons but %d marker rosettes, and markers.json does not "
+                            "resolve the rest" % (len(polys), len(mk) - len(recovered)))
     mask = ink_mask(svg_path)
     _, bands = line_grid(mask, [m[1] for m in mk], box)
     if not bands:
@@ -105,6 +124,10 @@ def regenerate(mushaf, page):
             surahNumber=int(tail_attrs["surah"]), ayahNumber=int(tail_attrs["ayah"]),
             x=None, y=None, continuation=True,
             polygon=path_d(merge_rects(built[tail_key]))))
+    if recovered:
+        notes = list(notes) + ["%d ayah end(s) had no ۝ rosette in the svg; position taken "
+                               "from markers.json: %s" % (len(recovered),
+                               ", ".join("(%.2f, %.2f)" % (x, y) for x, y, _ in recovered))]
     return new_text, entries, dict(geometry=geometry, tail=has_tail, tail_key=tail_key,
                                    tail_attrs=tail_attrs, notes=notes)
 

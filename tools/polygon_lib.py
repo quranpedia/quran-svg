@@ -159,6 +159,37 @@ def markers(svg_text):
     return [(x, y, hw) for (x, y), hw in sorted(out.items(), key=lambda t: (t[0][1], -t[0][0]))]
 
 
+def recover_markers(mk, entries, tol=1.5):
+    """(markers, recovered) — ayah ends whose ۝ rosette was never drawn.
+
+    A few Qalun pages print an ayah end as a bare numeral with no rosette, so the glyph is
+    absent from ``<g id="ayah_markers">`` even though the number is on the page.  Their
+    ``markers.json`` states every ayah end but in a different coordinate frame, offset by a
+    translation that varies from page to page.  Fit that translation by consensus and take
+    only the entries it leaves unmatched.  The fit has to explain *every* rosette the page
+    does draw, or it is not trusted and nothing is recovered.
+    """
+    if not mk or not entries:
+        return mk, []
+    best = (0, 0.0, 0.0)
+    for x, y, _ in mk:
+        for e in entries:
+            dx, dy = e["x"] - x, e["y"] - y
+            n = sum(1 for mx, my, _ in mk
+                    if any(abs(f["x"] - dx - mx) < tol and abs(f["y"] - dy - my) < tol
+                           for f in entries))
+            if n > best[0]:
+                best = (n, dx, dy)
+    n, dx, dy = best
+    if n < len(mk):
+        return mk, []
+    half = sorted(t[2] for t in mk)[len(mk) // 2]
+    added = [(round(e["x"] - dx, 3), round(e["y"] - dy, 3), half) for e in entries
+             if not any(abs(e["x"] - dx - x) < 2.0 and abs(e["y"] - dy - y) < 2.0
+                        for x, y, _ in mk)]
+    return sorted(mk + added, key=lambda t: (t[1], -t[0])), added
+
+
 # --------------------------------------------------------------------------- ink + line grid
 
 def ink_mask(svg_path, z=Z):
