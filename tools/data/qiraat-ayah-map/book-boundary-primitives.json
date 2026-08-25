@@ -1523,6 +1523,18 @@
             "kufi"
           ]
         }
+      },
+      "167": {
+        "end": {
+          "word": "ليقولون",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
       }
     },
     "38": {
@@ -2441,6 +2453,18 @@
       }
     },
     "80": {
+      "24": {
+        "end": {
+          "word": "طعامه",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        }
+      },
       "32": {
         "end": {
           "word": "ولأنعامكم",
@@ -2460,6 +2484,20 @@
             "madani-last",
             "makki",
             "basri",
+            "kufi"
+          ]
+        }
+      }
+    },
+    "81": {
+      "26": {
+        "end": {
+          "word": "تذهبون",
+          "counted_by": [
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
             "kufi"
           ]
         }
