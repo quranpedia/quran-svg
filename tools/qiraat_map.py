@@ -33,6 +33,19 @@ MUSHAFS = {
     "douri":  ("abu-amr", "duri"),
 }
 
+# A counting madhhab is a property of the printed edition, not of the qiraa alone.
+# qiraat.json hangs `counting_system` off the qiraa, which makes every Abu Amr mushaf
+# Basran; this King Fahd al-Duri edition says otherwise in its own colophon
+# («هو المعروف بالعدد الأول لأهل المدينة»), and its pages bear that out — against First
+# Madinan it agrees in 113 of 114 surahs, against Basran in 72.  The one surah it still
+# parts from al-Dani on is al-Mulk, where it counts «قد جاءنا نذير»; al-Dani gives that
+# ending to the Last Madinan and Makkan counts but records «وعدها شيبة», so the edition
+# follows a Madinan authority rather than departing on its own.  Hence 6217 + 1 = 6218.
+COUNTING_OVERRIDE = {
+    "douri": ("madani-first",
+              "the King Fahd al-Duri edition declares the First Madinan count in its colophon"),
+}
+
 KUFI_TOTAL = 6236
 
 
@@ -52,6 +65,8 @@ def counting_system(mushaf):
     """The counting madhhab this mushaf follows, e.g. 'hafs' -> 'kufi'."""
     if mushaf not in MUSHAFS:
         raise KeyError("unknown mushaf %r; known: %s" % (mushaf, ", ".join(sorted(MUSHAFS))))
+    if mushaf in COUNTING_OVERRIDE:
+        return COUNTING_OVERRIDE[mushaf][0]
     qiraa, rawi = MUSHAFS[mushaf]
     _, qiraat, _ = dataset()
     if qiraa not in qiraat:
