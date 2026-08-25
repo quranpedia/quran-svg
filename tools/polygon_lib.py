@@ -43,8 +43,11 @@ EPS = 0.01
 
 _RECT = re.compile(r"M\s*([-\d.]+)\s+([-\d.]+)\s+L\s*([-\d.]+)\s+([-\d.]+)"
                    r"\s+L\s*([-\d.]+)\s+([-\d.]+)\s+L\s*([-\d.]+)\s+([-\d.]+)\s+Z")
-# note the \s before d=: without it the non-greedy scan matches the "d=" inside id="…"
-_PATH = re.compile(r'<path class="ayahPolygon"([^>]*?)\sd="([^"]*)"([^>]*?)/>')
+# Attribute order varies: most files write class first, but Douri's opening spread writes
+# id first, so anchoring on `<path class="ayahPolygon"` silently parsed those pages as empty.
+# Match any <path> element and keep the ones whose class is ayahPolygon.
+# The \s before d= matters: without it the non-greedy scan matches the "d=" inside id="…".
+_PATH = re.compile(r'<path (?=[^>]*class="ayahPolygon")([^>]*?)\sd="([^"]*)"([^>]*?)/>')
 _ATTR = re.compile(r'(\w[\w-]*)="([^"]*)"')
 _MATRIX = re.compile(r'<g transform="matrix\(([-\d.eE ]+)\)"')
 _MARKER = re.compile(r'<g transform="translate\(([-\d.eE]+) ([-\d.eE]+)\) '

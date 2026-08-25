@@ -33,6 +33,22 @@ MUSHAFS = {
     "douri":  ("abu-amr", "duri"),
 }
 
+# Which counting madhhab a mushaf uses is a property of the printed edition, not
+# of the qiraa. qiraat.json hangs counting_system off the qiraa, which makes every
+# Abu Amr mushaf Basran. This King Fahd Al-Duri edition says otherwise in its own
+# colophon ("huwa al-ma'ruf bi-l-'adad al-awwal li-ahl al-Madinah"), and the pages
+# agree: against First Madinan they match in 110 of 114 surahs, against Basran in 72.
+#
+# The four that still differ (37, 67, 80, 81) are a real open question in 'ilm
+# al-fawasil, not a defect in these files. Al-Dani says Abu Ja'far alone drops those
+# endings while Shayba and the rest count them, but the dataset leaves madani-first
+# out of them. See quranpedia/qiraat-ayah-map#10. They are reported rather than
+# hidden, because nobody has settled them yet.
+COUNTING_OVERRIDE = {
+    "douri": ("madani-first",
+              "the King Fahd al-Duri edition declares the First Madinan count in its colophon"),
+}
+
 KUFI_TOTAL = 6236
 
 
@@ -52,6 +68,8 @@ def counting_system(mushaf):
     """The counting madhhab this mushaf follows, e.g. 'hafs' -> 'kufi'."""
     if mushaf not in MUSHAFS:
         raise KeyError("unknown mushaf %r; known: %s" % (mushaf, ", ".join(sorted(MUSHAFS))))
+    if mushaf in COUNTING_OVERRIDE:
+        return COUNTING_OVERRIDE[mushaf][0]
     qiraa, rawi = MUSHAFS[mushaf]
     _, qiraat, _ = dataset()
     if qiraa not in qiraat:
