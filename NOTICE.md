@@ -4,6 +4,13 @@ This repository contains vector (SVG) renderings of Qur'an muṣḥaf pages toge
 transparent, clickable ayah‑polygon layer and per‑page JSON metadata. Please read the
 following before using the material.
 
+**In one line:** everything *we* made is CC0 (public domain); the muṣḥaf page artwork
+belongs to its publishers, whose terms are permissive and set out below.
+
+`LICENSE` holds the plain text of CC0 1.0 so that automated tools can identify it. It is
+the licence for **our** contribution only — the scope is spelled out in §3, and the
+publishers' terms for the artwork are in §2.
+
 ## 1. The Qur'anic text itself
 
 The text of the Holy Qur'an (the ʿUthmānī rasm) is the revealed Word of Allah. It is **not
@@ -41,6 +48,13 @@ usage rights:
 media, web, and software use — worldwide. The **only** restriction is the physical
 **print‑for‑commercial‑sale** trade of muṣḥafs, which is reserved to the Complex.
 Source: <https://qurancomplex.gov.sa>.
+
+### 2.2 Libyan Ministry of Endowments (Awqāf) — the Libyan Qālūn edition
+
+Free for **non‑commercial** use only; commercial use requires prior approval from the
+Libyan Ministry of Endowments (Awqāf). No such edition is published in this repository
+today — the five editions above are all KFQC — but the term is recorded here so it travels
+with the project if that artwork is ever added.
 
 ## 3. This repository's own contribution — CC0 1.0 (public domain)
 

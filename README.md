@@ -1,11 +1,85 @@
-# Quran SVG
+# Quran SVG — muṣḥaf pages as SVG with per-ayah coordinates
 
-High-quality Quran **SVG pages** with a transparent, clickable **ayah-polygon** layer,
-across multiple qiraat and publishers.
+[![License: CC0-1.0](https://img.shields.io/badge/metadata-CC0%201.0-brightgreen.svg)](LICENSE)
+[![Pages](https://img.shields.io/badge/pages-3%2C020-blue.svg)](#available-mushafs)
+[![Ayah polygons](https://img.shields.io/badge/ayah%20polygons-31%2C118-blue.svg)](#svg--polygon-structure)
+[![Qiraat](https://img.shields.io/badge/qiraat-5%20riwayat-orange.svg)](#available-mushafs)
+
+**Free Quran SVG pages for app developers** — the complete 604-page Muṣḥaf al-Madinah as
+vector graphics, with a transparent **clickable ayah layer** so you can highlight, tap or
+select any verse without doing your own OCR or coordinate work.
+
+<div dir="rtl">
+
+**صفحات المصحف الشريف بصيغة SVG مع إحداثيات الآيات** — مصحف المدينة كاملًا (٦٠٤ صفحات)
+رسوميات متجهة، مع طبقة شفافة قابلة للنقر لكل آية، جاهزة لتطبيقات القرآن الكريم.
+مجاني ومفتوح المصدر. انظر [نبذة بالعربية](#نبذة-بالعربية).
+
+</div>
 
 Each page is an SVG (plus a Brotli `.svg.br`) whose ayah hit-regions are
 `<path class="ayahPolygon" surah=… ayah=… number=…>`. The `json/` folder holds
 per-page polygon metadata plus two indexes: `surah.json` and `markers.json`.
+
+## Why this repo
+
+Most Quran page assets are raster images with no verse geometry, so every project
+re-solves the same problem: *where on the page is ayah 2:255?* Here that answer ships with
+the artwork.
+
+- **Vector, not raster** — sharp at any zoom, dark-mode friendly, small over the wire.
+- **Ayah hit-regions included** — a real polygon per verse, not a bounding box guess.
+- **Five riwāyāt** — Ḥafṣ, Warsh, Qālūn, al-Dūrī and Shuʿbah, in one consistent layout.
+- **Coordinates you can trust** — polygons are derived from each page's own ayah medallions
+  and audited against the ink, not hand-placed.
+- **CC0 metadata** — the polygon layer and JSON are public domain; build on them commercially
+  with no attribution required.
+
+## Use cases
+
+Things people build with this:
+
+- **Quran apps** for iOS, Android, Flutter, React Native or the web — tap an ayah to open
+  tafsīr, translation, or audio.
+- **Verse highlighting** — follow-along recitation, karaoke-style ayah highlighting, bookmarks.
+- **Ayah screenshots and sharing** — crop an exact verse from the printed page.
+- **Memorisation (ḥifẓ) tools** — hide, reveal or test a single ayah in place.
+- **Research and annotation** — a stable coordinate space for tagging tajwīd, waqf, or
+  morphology onto the printed page.
+- **Comparing qirāʾāt** — the same page number across five riwāyāt.
+
+## Quick start — download
+
+The full repository is large (every page of five muṣḥafs). Take only what you need.
+
+**One mushaf, latest revision only:**
+
+```sh
+git clone --depth 1 --filter=blob:none --sparse https://github.com/quranpedia/quran-svg.git
+cd quran-svg
+git sparse-checkout set mushafs/hafs/kfqc
+```
+
+**A handful of pages, no clone at all:**
+
+```sh
+# page 1 of Hafs, and its polygon metadata
+curl -O https://raw.githubusercontent.com/quranpedia/quran-svg/main/mushafs/hafs/kfqc/svg/001.svg
+curl -O https://raw.githubusercontent.com/quranpedia/quran-svg/main/mushafs/hafs/kfqc/json/001.json
+```
+
+**Drop a page straight into a web app:**
+
+```html
+<object data="001.svg" type="image/svg+xml" id="page"></object>
+<script>
+  document.getElementById('page').addEventListener('load', e => {
+    e.target.getSVGDocument().querySelectorAll('.ayahPolygon').forEach(p =>
+      p.addEventListener('click', () =>
+        console.log('surah', p.getAttribute('surah'), 'ayah', p.getAttribute('ayah'))));
+  });
+</script>
+```
 
 ## Layout
 
@@ -32,6 +106,11 @@ Pages that contain more than one surah also have surah-specific variants, e.g.
 | Nafiʿ | Qalun | King Fahd Complex — KFQC | `qalon/kfqc` | 604 | 6214 |
 | Abu ʿAmr | Al-Douri | King Fahd Complex — KFQC | `douri/kfqc` | 604 | 6218 |
 | ʿAsim | Shuʿbah | King Fahd Complex — KFQC | `shubah/kfqc` | 604 | 6236 |
+
+Spelling varies across sources; these are the same editions you may see written as
+Hafs/Ḥafṣ, Warsh/Warch, Qalun/Qaloon/Qālūn, Douri/Duri/al-Dūrī, Shubah/Shuʿbah/Shu'bah,
+and qiraat/qira'at/qirāʾāt/recitations. The publisher is the King Fahd Glorious Qur'an
+Printing Complex (KFGQPC), i.e. the Madinah Mushaf / Mushaf al-Madinah.
 
 ## SVG & polygon structure
 
@@ -69,6 +148,78 @@ Give the glyph paths `pointer-events:none` so the lower polygons receive clicks.
 location ~ \.svg\.br$  { add_header Content-Encoding br; default_type image/svg+xml; }
 location ~ \.json\.br$ { add_header Content-Encoding br; default_type application/json; }
 ```
+
+## FAQ
+
+**How do I make an ayah clickable on a Quran page?**
+Render the SVG inline (or in an `<object>`), give the glyph paths `pointer-events:none`, and
+listen for clicks on `.ayahPolygon`. Each polygon carries `surah`, `ayah` and `number`.
+
+**How do I get the coordinates or bounding box of a specific verse?**
+Read `mushafs/<qiraa>/<publisher>/json/<page>.json`. Every entry has the ayah's `polygon`
+and the centre of its ayah medallion. `surah.json` maps a surah to its starting page.
+
+**Which page is a surah or ayah on?**
+`surah.json` gives page, juz, names and ayah count for all 114 surahs. `markers.json` lists
+every ayah medallion with its page and position.
+
+**Can I use this commercially / in a paid app?**
+Yes. Our polygon layer and JSON are CC0. The KFQC page artwork is free for digital, web,
+software and media use worldwide; the only restriction is printing physical muṣḥafs for
+commercial sale. See [NOTICE.md](NOTICE.md).
+
+**Can I use it offline?**
+Yes — it's static files. Ship the pages you need with your app.
+
+**Why are ayah counts different between the mushafs?**
+Because the qirāʾāt genuinely differ in verse division. The counts follow each mushaf's own
+medallions rather than being forced to one system. See
+[qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) for mapping between them.
+
+**Is the Quran text itself included as text?**
+The pages are vector artwork of the printed muṣḥaf — glyph outlines, not selectable Unicode.
+Use the polygons to link a region to a verse identifier, then pull text from a text dataset.
+
+## نبذة بالعربية
+
+<div dir="rtl">
+
+هذا المستودع يوفّر **صفحات المصحف الشريف بصيغة SVG** (رسوميات متجهة) مع **طبقة إحداثيات
+لكل آية**، ممّا يتيح للمطوّرين جعل كل آية قابلة للنقر أو التظليل داخل التطبيقات.
+
+**ما الذي يحتويه المستودع؟**
+
+- مصحف المدينة كاملًا — ٦٠٤ صفحات لكل رواية.
+- خمس روايات: **حفص، وورش، وقالون، والدوري، وشعبة** عن القرّاء العشرة.
+- مضلّع (polygon) لكل آية يحدّد موضعها على الصفحة بدقّة.
+- ملفات JSON تتضمّن إحداثيات الآيات، وفهرس السور، ومواضع علامات الآيات.
+- نسخ مضغوطة بصيغة Brotli لتسريع التحميل على الويب.
+
+**لمن هذا المشروع؟** لمطوّري **تطبيقات القرآن الكريم** على الويب وأندرويد و iOS، ومشاريع
+التحفيظ، وبرامج التلاوة والمتابعة الصوتية، والبحث العلمي في الرسم العثماني.
+
+**الترخيص:** كل ما أنتجناه (طبقة الإحداثيات وملفات JSON) في **الملك العام CC0** — استخدمه
+بحرّية تامّة تجاريًا ودون نسب. أمّا رسوم صفحات المصحف فهي من إصدارات مجمع الملك فهد لطباعة
+المصحف الشريف، ويُسمح باستخدامها مجانًا في الأغراض الرقمية والبرمجية والإعلامية، والقيد
+الوحيد هو طباعة المصاحف الورقية لغرض البيع التجاري. راجع [NOTICE.md](NOTICE.md).
+
+**كلمات مفتاحية:** تحميل مصحف SVG، إحداثيات الآيات، مصحف المدينة، القرآن الكريم للمطورين،
+تطبيقات القرآن، تظليل الآية، بيانات القرآن مفتوحة المصدر، رواية حفص عن عاصم، رواية ورش عن نافع.
+
+</div>
+
+## Related projects
+
+- **[qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map)** — maps ayah numbers
+  between the six canonical counting systems used by the ten qirāʾāt.
+- **[tajweed-engine](https://github.com/quranpedia/tajweed-engine)** — rule-driven tajwīd
+  engine over Uthmani text, with a scholar-authored rule corpus.
+- **[qurantech-skill](https://github.com/quranpedia/qurantech-skill)** — agent skill for
+  building Quran apps: muṣḥaf display, qirāʾāt, tajwīd, audio, search, ḥifẓ and adab rules
+  for handling sacred text.
+
+Contributions and corrections are welcome — please open an issue if you find a page or a
+polygon that is wrong.
 
 ## License & usage
 
